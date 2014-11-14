@@ -1,6 +1,8 @@
 <?php
 
 	class Carts extends CI_Controller {
+
+		/* Constructor */
 		function __construct() {
     		// Call the Controller constructor
 	    	parent::__construct();	
@@ -22,7 +24,7 @@
 
 		/* Displays a form to create a new cart */
 		function newForm() {
-			$this->load->view('cart/new.php'
+			$this->load->view('cart/new.php');
 		}
 
 		/* Displays a form to edit a cart */
