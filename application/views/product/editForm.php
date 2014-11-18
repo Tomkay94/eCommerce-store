@@ -2,7 +2,6 @@
 
 <style>
 	input { display: block;}
-	
 </style>
 
 <?php 
