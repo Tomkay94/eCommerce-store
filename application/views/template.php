@@ -10,13 +10,21 @@
         <link rel="stylesheet" href="<?=  base_url(); ?>css/template.css">
     </head>
     <body>
-        <div id="header">
-            header
-        </div>
+        <header>
+            <h2 id="main-title">
+                <a href="<?=  base_url(); ?>">eStore</a>
+            </h2>
+            <div class="user-bar">
+                Sign up / Log in
+            </div>
+        </header>
 
-        <div id="nav">
-            navigation
-        </div>
+        <nav>
+            <h3>Navigation</h3>
+            <ul>
+                <li><a href="<?=  base_url(); ?>">Store Front</a></li>
+            </ul>
+        </nav>
 
         <div id="main">
             <?php $this->load->view($main); ?>

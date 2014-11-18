@@ -78,15 +78,23 @@ class Store extends CI_Controller {
     function read($id) {
         $this->load->model('product_model');
         $product = $this->product_model->get($id);
-        $data['product']=$product;
-        $this->load->view('product/read.php',$data);
+        $data = array(
+            'title' => 'Would you buy a '.$product->name.'?',
+            'main' => 'product/read',
+            'product' => $product
+        );
+        $this->load->view('template', $data);
     }
 
     function editForm($id) {
         $this->load->model('product_model');
         $product = $this->product_model->get($id);
-        $data['product']=$product;
-        $this->load->view('product/editForm.php',$data);
+        $data = array(
+            'title' => 'Editing product #'.$product->id,
+            'main' => 'product/editForm',
+            'product' => $product
+        );
+        $this->load->view('template', $data);
     }
 
     function update($id) {
@@ -112,8 +120,12 @@ class Store extends CI_Controller {
             $product->name = set_value('name');
             $product->description = set_value('description');
             $product->price = set_value('price');
-            $data['product']=$product;
-            $this->load->view('product/editForm.php',$data);
+            $data = array(
+                'title' => 'Editing product #'.$product->id,
+                'main' => 'product/editForm',
+                'product' => $product
+            );
+            $this->load->view('template', $data);
         }
     }
 
