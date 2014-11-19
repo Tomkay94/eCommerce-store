@@ -1,6 +1,7 @@
-body{
+body {
     font-family: Arial, Verdana, sans-serif;
-    margin:0;
+    margin: 0;
+    background-color: #f7f7f7;
 }
 
 header {
@@ -11,30 +12,34 @@ input {
     display: block;
 }
 
-#main-title {
-    display: inline-block;
-    margin: 0.5em 2em;
-}
-
-#main-title > a {
-    text-decoration: none;
-}
-
-.user-bar {
-    float: right;
-    margin: 1em 2em;
-}
-
 nav {
-    padding: 5pt;
-    position: absolute;	
-    width:130px;
-    height: 800px;
-    font-size: 10pt;
-    border:1px solid #31363E;
-    background: lightgray;
+    position: fixed;	
+    width: 100%;
+    font-size: 1.5em;
+    background: #2c3e50;
+    top: 0;
+    display: block;
+    z-index: 99;
+    text-align: center;
+    font-weight: 700;
 }
 
-#main{
-    margin-left: 12em;
+nav ul li {
+    display: inline;
+    text-decoration: none;
+    padding: 0px 10px;
+}
+
+nav ul li a {
+    color: #ecf0f1;
+}
+
+nav ul li a:hover {
+    text-decoration: none;
+    opacity: 0.7;
+    color: #ecf0f1;
+}
+
+#products-list {
+    margin-top: 80px;
 }

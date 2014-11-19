@@ -14,27 +14,33 @@
         <link rel="stylesheet" href="<?=  base_url(); ?>css/template.css">
     </head>
     <body>
-        <header>
-            <h2 id="main-title">
-                <a href="<?=  base_url(); ?>">eStore</a>
-            </h2>
-            <div class="user-bar">
-                <a href="<?=  base_url(); ?>user/register">Sign up</a>
-            </div>
-        </header>
-
         <nav>
-            <h3>Navigation</h3>
             <ul>
                 <li><a href="<?=  base_url(); ?>">Store Front</a></li>
                 <!-- if admin -->
                 <li><a href="<?=  base_url(); ?>user">User List</a></li>
+                <li><a href="<?=  base_url(); ?>user/register">Sign up</a></li>
+                <li><a href="<?=  base_url(); ?>">eStore</a></li>
             </ul>
         </nav>
 
         <div id="main">
             <?php $this->load->view($main); ?>
         </div>
+
+        <div class="container">
+		    <hr>
+		    <!-- Footer -->
+		    <footer>
+		        <div class="row">
+		            <div class="col-lg-12">
+		                <p>Copyright &copy; eStore 2014</p>
+		            </div>
+		        </div>
+		    </footer>
+		</div>
+
+
         <!-- import bootstrap js and jquery -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/latest/jquery.min.js"></script>
