@@ -1,8 +1,3 @@
-<h1>
-	HELLO
-</h1>
-
-
 <?php
 
 /*
@@ -61,7 +56,7 @@ if (defined('ENVIRONMENT'))
  * as this file.
  *
  */
-	$system_path = '~/var/www/estore';
+	$system_path = '/var/www/estore/system';
 
 /*
  *---------------------------------------------------------------
@@ -77,8 +72,7 @@ if (defined('ENVIRONMENT'))
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = '~/var/www/estore';
-
+	$application_folder = '/var/www/estore/application';
 /*
  * --------------------------------------------------------------------
  * DEFAULT CONTROLLER
