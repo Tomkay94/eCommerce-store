@@ -1,32 +1,52 @@
-<h2>Sign up</h2>
-<?php
-  echo form_open('user/create');
+<section class="closed-container" style="">
+  
+  <h2 class="container-header">Sign up</h2>
+  
+  <?= form_open('user/create', "role='form'") ?>
 
-  echo form_label('Username');
-  echo form_error('login');
-  echo form_input('login', set_value('login'), "required");
+    <div class="form-group">
+      <?= form_error('login')?>
+      <?= form_label('Username')?>
+      <?= form_input('login', set_value('login'), "class='form-control'", "required")?>
+    </div>
 
-  echo form_label('Email');
-  echo form_error('email');
-  echo form_input('email', set_value('email'), "required");
 
-  echo form_label('First Name'); 
-  echo form_error('first');
-  echo form_input('first', set_value('first'));
+    <div class="form-group">
+      <?= form_label('Email')?>
+      <?= form_error('email')?>
+      <?= form_input('email', set_value('email'), "class='form-control'", "required")?>
+    </div>
 
-  echo form_label('Last Name'); 
-  echo form_error('last');
-  echo form_input('last', set_value('last'));
 
-  echo form_label('Password');
-  echo form_error('pass');
-  echo form_input('pass', "", "required");
+    <div class="form-group">
+      <?= form_error('first')?>
+      <?= form_label('First Name')?> 
+      <?= form_input('first', set_value('first'), "class='form-control'")?>
+    </div>
 
-  echo form_label('Password Confirmation');
-  echo form_error('pass2');
-  echo form_input('pass2', "", "required");
-  echo '<br>';
 
-  echo form_submit('submit', 'Register');
-  echo form_close();
-?>
+    <div class="form-group">
+      <?= form_error('last')?>
+      <?= form_label('Last Name')?> 
+      <?= form_input('last', set_value('last'), "class='form-control'")?>
+    </div>
+
+
+    <div class="form-group">
+      <?= form_error('pass')?>
+      <?= form_label('Password')?>
+      <?= form_input('pass', "", "class='form-control'", "required")?>
+    </div>
+
+
+    <div class="form-group">
+      <?= form_error('pass2')?>
+      <?= form_label('Password Confirmation')?>
+      <?= form_input('pass2', "", "class='form-control'", "required")?>
+    </div>
+
+    <?= '<br>'?>
+    <?= form_submit('submit', 'Register', "class='btn btn-default'")?>
+  
+  <?= form_close()?>
+</section>

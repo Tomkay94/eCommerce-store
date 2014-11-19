@@ -16,11 +16,9 @@
     <body>
         <nav>
             <ul>
-                <li><a href="<?=  base_url(); ?>">Store Front</a></li>
-                <!-- if admin -->
+                <li><a href="<?=  base_url(); ?>">eStore</a></li>
                 <li><a href="<?=  base_url(); ?>user">User List</a></li>
                 <li><a href="<?=  base_url(); ?>user/register">Sign up</a></li>
-                <li><a href="<?=  base_url(); ?>">eStore</a></li>
             </ul>
         </nav>
 
