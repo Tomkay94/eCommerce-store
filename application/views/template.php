@@ -7,11 +7,11 @@
         <meta name="description" content="your first place to shop">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- import bootstrap css -->
+        <!-- asset imports -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-
         <link rel="stylesheet" href="<?=  base_url(); ?>css/template.css">
+    	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     </head>
     <body>
         <nav>
@@ -39,9 +39,7 @@
 		        </div>
 		    </footer>
 		</div>
-
-
-        <!-- import bootstrap js and jquery -->
+        <!-- javascript imports -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/latest/jquery.min.js"></script>
     </body>
