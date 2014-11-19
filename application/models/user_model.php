@@ -4,13 +4,13 @@ class User_model extends CI_Model {
   function getAll()
   {
     $query = $this->db->get('customers');
-    return $query->result('User');
+    return $query->result('MUser');
   }
 
   function get($id)
   {
     $query = $this->db->get_where('customers',array('id' => $id));
-    return $query->row(0,'User');
+    return $query->row(0,'MUser');
   }
 
   function delete($id) {

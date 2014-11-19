@@ -1,5 +1,5 @@
 <?php
-class User {
+class MUser {
   public $id;
   public $first;
   public $last;
