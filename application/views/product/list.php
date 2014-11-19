@@ -1,5 +1,5 @@
 <!-- Page Content -->
-<div class="container"id="products-list">
+<div class="container" id="products-list">
 
     <div class="row">
 
