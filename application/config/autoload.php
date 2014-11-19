@@ -52,7 +52,6 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-//$autoload['libraries'] = array();
 $autoload['libraries'] = array('database','session','email');
 
 
@@ -65,7 +64,6 @@ $autoload['libraries'] = array('database','session','email');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-//$autoload['helper'] = array();
 $autoload['helper'] = array('url','form','text','date','security');
 
 
@@ -112,7 +110,7 @@ $autoload['language'] = array();
 */
 
 //$autoload['model'] = array('MCats','MProducts','MOrders','MAdmins','MSizes','MColors', 'MPages', 'MSubscribers');
-$autoload['model'] = array('User', 'Order', 'Order_Item', 'Product');
+$autoload['model'] = array('MUser', 'Order', 'Order_Item', 'Product');
 
 
 /* End of file autoload.php */

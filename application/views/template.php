@@ -15,7 +15,7 @@
                 <a href="<?=  base_url(); ?>">eStore</a>
             </h2>
             <div class="user-bar">
-                Sign up / Log in
+                <a href="<?=  base_url(); ?>user/register">Sign up</a>
             </div>
         </header>
 
@@ -23,6 +23,8 @@
             <h3>Navigation</h3>
             <ul>
                 <li><a href="<?=  base_url(); ?>">Store Front</a></li>
+                <!-- if admin -->
+                <li><a href="<?=  base_url(); ?>user">User List</a></li>
             </ul>
         </nav>
 

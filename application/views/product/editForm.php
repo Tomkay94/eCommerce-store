@@ -1,9 +1,5 @@
 <h2>Edit Product</h2>
 
-<style>
-	input { display: block;}
-</style>
-
 <?php 
 	echo "<p>" . anchor('store/index','Back') . "</p>";
 	
