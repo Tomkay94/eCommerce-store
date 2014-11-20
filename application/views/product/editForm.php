@@ -1,26 +1,31 @@
 <section class="closed-container">
   
   	<h2 class="container-header">Edit Product</h2>
-  	
-	<?php 
-		echo "<p>" . anchor('store/index','Back') . "</p>";
-		
-		echo form_open("store/update/$product->id");
-		
-		echo form_label('Name'); 
-		echo form_error('name');
-		echo form_input('name',$product->name,"required");
 
-		echo form_label('Description');
-		echo form_error('description');
-		echo form_input('description',$product->description,"required");
+	 
+		<p><?= anchor('store/index','Back')?></p>
 		
-		echo form_label('Price');
-		echo form_error('price');
-		echo form_input('price',$product->price,"required");
+		<?= form_open("store/update/$product->id"); ?>
 		
-		echo form_submit('submit', 'Save');
-		echo form_close();
-	?>	
+	    <div class="form-group">
+			<?= form_label('Name'); ?> 
+			<?= form_error('name'); ?>
+			<?= form_input('name', $product->name, "class='form-control'", "required"); ?>
+	    </div>
+
+	    <div class="form-group">
+			<?= form_label('Description'); ?>
+			<?= form_error('description'); ?>
+			<?= form_input('description', $product->description, "class='form-control'", "required"); ?>
+	    </div>
+
+	    <div class="form-group">
+			<?= form_label('Price'); ?>
+			<?= form_error('price'); ?>
+			<?= form_input('price', $product->price, "class='form-control'", "required"); ?>
+	    </div>
+		
+		<?= form_submit('submit', 'Save'); ?>
+		<?= form_close(); ?>
 
 </section>
