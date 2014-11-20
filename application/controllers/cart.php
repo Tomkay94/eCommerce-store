@@ -1,7 +1,7 @@
 <?php
 	class Cart extends CI_Controller {
 
-		/* Add an item to the cart */
+		/* Update the cart items and their quantities */
 		function add() {
 			$this->load->model('product_model');
 
@@ -23,7 +23,7 @@
 				}
 	        }
 
-	        // The item was not in the cart, insert it.
+	        // If the item was not in the cart already, insert it.
 	        if ($item_not_in_cart) {
 	            $data = array(
 	                'id' => $this->input->post('id'),
@@ -33,7 +33,7 @@
 	            );
 	            $this->cart->insert($data);
 	        }
-	        
+
 			redirect('store');
 		}
 
