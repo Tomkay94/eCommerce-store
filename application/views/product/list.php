@@ -11,7 +11,13 @@
           <?php if ($this->session->userdata('signed_in') && !$this->MUser->isAdmin($this->session->userdata('login'))): ?>
             <a href="#" class="list-group-item">Checkout</a>
           <? endif ?>
-          <a href=<?= base_url() . 'cart/destroy' ?> class="list-group-item">Clear Cart</a>
+          <?= anchor(base_url() . 'cart/destroy', "Clear Cart",
+                      "class='list-group-item'".
+                      "onClick='return confirm(".
+                        '"You are about to remove all items from your shopping cart."'.
+                      ");'"
+                    );
+          ?>
       </div>
 
       <!-- Show the shopping cart, if it exists -->
@@ -33,7 +39,15 @@
                 <td><?= $product['name'] ?></td>
                 <td><?= '$' . $product['subtotal'] ?></td>
                 <td><?= form_input('item_' . $product['rowid'], $product['qty'], "class='form-control'", "required") ?></td>
-                <td><?= anchor(base_url() . 'cart/remove/' . $product['rowid'], "&times;", "id='cart-remove'"); ?></td>
+                <td>
+                  <?= anchor(base_url() . 'cart/remove/' . $product['rowid'], "&times;",
+                              "id='cart-remove'".
+                              "onClick='return confirm(".
+                                '"Do you really want to remove these items from cart?"'.
+                              ");'"
+                            );
+                  ?>
+                </td>
               </tr>
             <? } ?>
           </tbody>
@@ -56,14 +70,18 @@
                 <h4 class="pull-right">$<?= $product->price ?></h4>
                 <h4><a href=<?= base_url() . "store/read/$product->id"?>><?= $product->name ?></a></h4>
                 <p><?= $product->description ?></p>
-                    
-                <!-- product actions -->
-                <!-- if the admin is logged in, show product crud actions-->
-				        <?php if ($this->session->userdata('signed_in') && $this->MUser->isAdmin($this->session->userdata('login'))): ?>
-                  <?= anchor(base_url() . "store/delete/$product->id",'Delete',"onClick='return confirm(\"Do you really want to delete this record?\");'"); ?>
-  				        <?= anchor(base_url() . "store/editForm/$product->id",'Edit'); ?>
-				        <? endif ?>
-                <?= anchor(base_url() . "store/read/$product->id",'View'); ?>
+
+                <div class="pull-right">
+                  <!-- product actions -->
+                  <?= anchor(base_url() . "store/read/$product->id",'View'); ?>
+                  <!-- if the admin is logged in, show product crud actions-->
+                  <?php if ($this->session->userdata('signed_in') &&
+                            $this->MUser->isAdmin($this->session->userdata('login'))): ?>
+                    <?= anchor(base_url() . "store/editForm/$product->id", 'Edit'); ?>
+                    <?= anchor(base_url() . "store/delete/$product->id", 'Delete',
+                               "onClick='return confirm(\"Do you really want to delete this record?\");'"); ?>
+                  <? endif ?>
+                </div>
               </div>
               <?= form_submit('action', 'Add to Cart', "class='btn btn-default'"); ?>
             </div>

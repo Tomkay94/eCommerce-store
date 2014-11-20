@@ -1,11 +1,30 @@
-<h2>User #<?= $user->id ?></h2>
-<?php 
+<section class="closed-container">
+  <h2 class="container-header">User #<?= $user->id ?></h2>
 
-	echo "<p> ID = " . $user->id . "</p>";
-	echo "<p> Login  = " . $user->login . "</p>";
-	echo "<p> Email  = " . $user->email . "</p>";
-	echo "<p> First Name  = " . $user->first . "</p>";
-	echo "<p> Last Name  = " . $user->last . "</p>";
-		
-	echo "<p>" . anchor('user/edit/'.$user->id, 'Edit') . "</p>";
-?>	
+  <table class="table">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>login</th>
+        <th>first name</th>
+        <th>last name</th>
+        <th>email</th>
+      </tr>
+    </thead>
+    <tr>
+      <td><?= $user->id ?></td>
+      <td><?= $user->login ?></td>
+      <td><?= $user->first ?></td>
+      <td><?= $user->last ?></td>
+      <td><?= $user->email ?></td>
+      <td><?= anchor("user/edit/$user->id", 'Edit') ?></td>
+      <td><?= anchor("user/delete/$user->id", 'Delete',
+                      "onClick='return confirm(".
+                        '"Do you really want to delete this record?"'.
+                      ");'"
+                    );
+          ?>
+      </td>
+    </tr>
+  </table>
+</section><!-- ./closed-container -->

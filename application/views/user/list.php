@@ -10,7 +10,7 @@
 
   <h2 class="container-header">User Table</h2>
 
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>id</th>
