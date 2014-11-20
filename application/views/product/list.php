@@ -12,7 +12,9 @@
               echo anchor(base_url() . 'store/newForm', "Add New Product", "class='list-group-item'");
             }
             // else { // admin can't check out in specification
-              echo anchor(base_url() . 'checkout/show', "Checkout", "class='list-group-item'");
+              if ($cart = $this->cart->contents()) {
+                echo anchor(base_url() . 'checkout/show', "Checkout", "class='list-group-item'");
+              }
             // }
           }
           if ($cart = $this->cart->contents()) {
@@ -22,12 +24,14 @@
                           '"You are about to remove all items from your shopping cart."'.
                         ");'"
                        );
+          } else {
+            echo "<div class='list-group-item'>You cart is empty, buy something!</div>";
           }
         ?>
       </div>
 
       <!-- Show the shopping cart, if it exists -->
-      <? if ($cart = $this->cart->contents()): ?>
+      <?php if ($cart = $this->cart->contents()): ?>
 
         <table class="table" id="shopping-cart">
           <caption id="cart-header">Shopping Cart</caption>
@@ -40,7 +44,7 @@
             </tr>
           </thead>
           <tbody>
-            <? foreach ($cart as $product) { ?>
+            <?php foreach ($cart as $product) { ?>
               <tr>
                 <td><?= $product['name'] ?></td>
                 <td><?= '$' . $product['subtotal'] ?></td>
@@ -55,19 +59,19 @@
                   ?>
                 </td>
               </tr>
-            <? } ?>
+            <?php } ?>
           </tbody>
           <td><strong>Total:</strong></td>
           <td><?= '$' . $this->cart->total();?></td>  
         </table>
         
-      <? endif ?>
+      <?php endif ?>
     </div><!-- ./col-md-3 -->
 
       <div class="col-md-9">
 
         <div class="row">
-        <? foreach ($products as $product) { ?>
+        <?php foreach ($products as $product) { ?>
           <?= form_open('cart/add'); ?>
           <div class="col-sm-4 col-lg-4 col-md-4">
             <div class="thumbnail">
@@ -86,7 +90,7 @@
                     <?= anchor(base_url() . "store/editForm/$product->id", 'Edit'); ?>
                     <?= anchor(base_url() . "store/delete/$product->id", 'Delete',
                                "onClick='return confirm(\"Do you really want to delete this record?\");'"); ?>
-                  <? endif ?>
+                  <?php endif ?>
                 </div>
               </div>
               <?= form_submit('action', 'Add to Cart', "class='btn btn-default'"); ?>
@@ -94,7 +98,7 @@
           </div>
           <?= form_hidden('id', $product->id); ?>
           <?= form_close(); ?>
-        <? } ?><!-- end foreach -->
+        <?php } ?><!-- end foreach -->
         </div><!-- ./row -->
       </div><!-- ./col-md-9 -->
   </div><!-- ./row -->

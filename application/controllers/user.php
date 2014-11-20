@@ -136,6 +136,7 @@ class User extends CI_Controller {
   function logout() {
     // pretty hackish, but it signs the client out.
     $this->session->unset_userdata('signed_in');
+    $this->cart->destroy();
     $this->session->set_flashdata('info', 'You have signed out.');
     redirect('store', 'refresh');
   }
