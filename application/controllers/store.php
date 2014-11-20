@@ -2,20 +2,40 @@
 
 class Store extends CI_Controller {
 
-    function __construct() {
-        // Call the Controller constructor
-        parent::__construct();
+  function __construct() {
+    // Call the Controller constructor
+    parent::__construct();
 
-        $config['upload_path'] = './images/product/';
-        $config['allowed_types'] = 'gif|jpg|png';
-/*
-        $config['max_size'] = '100';
-        $config['max_width'] = '1024';
-        $config['max_height'] = '768';
-*/
+    $config['upload_path'] = './images/product/';
+    $config['allowed_types'] = 'gif|jpg|png';
+    /*
+      $config['max_size'] = '100';
+      $config['max_width'] = '1024';
+      $config['max_height'] = '768';
+    */
 
-        $this->load->library('upload', $config);
+    $this->load->library('upload', $config);
+  }
+
+  function _remap($method, $params = array()) {
+    // enforce access control to protected functions
+    $protected = array('newForm', 'create', 'editForm', 'update', 'delete', 'delete_all');
+    $admin_only = array('newForm', 'create', 'editForm', 'update', 'delete', 'delete_all');
+
+    // authentication
+    if (in_array($method, $protected) && !$this->session->userdata('signed_in')) {
+      $this->session->set_flashdata('warning', 'we will need to authenticate you first!');
+      redirect('user/login', 'refresh');
     }
+
+    // authorization
+    if (in_array($method, $admin_only) && !$this->MUser->isAdmin($this->session->userdata('login'))) {
+      $this->session->set_flashdata('warning', 'only admin can perform this operation');
+      redirect('', 'refresh');
+    }
+
+    return call_user_func_array(array($this, $method), $params);
+  }
 
     function index() {
         $this->load->model('product_model');

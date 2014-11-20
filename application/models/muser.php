@@ -7,6 +7,7 @@ class MUser extends CI_Model {
   public $password;
   public $email;
 
+  // helpers
   function passwordMatch($pass) {
     return $this->password == $pass;
   }
