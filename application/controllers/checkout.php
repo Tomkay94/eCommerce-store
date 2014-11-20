@@ -20,9 +20,6 @@ class Checkout extends CI_Controller {
 			// create the order record 
 		}
 	}
-
-
-
 }
 
 ?>

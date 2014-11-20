@@ -62,10 +62,12 @@ class Order extends CI_Controller {
 
     if ($this->MOrder->insert($order, $this->cart->contents())) {
       $this->session->set_flashdata('info', 'order successfully created, a email will be sent to you.');
+      // Send the order email
+      redirect('email/send_mail', 'refresh');
     } else {
       $this->session->set_flashdata('warning', 'failed to process transaction');
+      redirect('store', 'refresh');
     }
-    redirect('order', 'store');
   }
 
   function delete($id) {
