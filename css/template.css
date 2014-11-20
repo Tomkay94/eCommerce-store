@@ -66,3 +66,11 @@ nav ul li a:hover {
     text-align: center;
     font-size: 1.25em;
 }
+
+.cart-remove {
+    font-size: 25px;
+}
+
+.cart-remove:hover {
+    text-decoration: none;
+}

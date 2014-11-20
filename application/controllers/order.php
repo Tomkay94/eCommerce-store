@@ -8,7 +8,7 @@
 		}
 
 		function index() {
-
+			
 		}
 
 		function create() {
@@ -20,7 +20,7 @@
 		}
 
 		function show($id) {
-
+			
 		}
 
 		function edit($id) {

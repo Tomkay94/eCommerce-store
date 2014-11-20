@@ -4,41 +4,42 @@
   <div class="row">
 
     <div class="col-md-3">
-		<h2>Products</h2>
+  		<h2>Products</h2>
     
-          <div class="list-group">
-              <a href=<?= base_url() . "store/newForm" ?> class="list-group-item">Add New Product</a>
-              <a href="#" class="list-group-item">Checkout</a>
-          </div>
+      <div class="list-group">
+          <a href=<?= base_url() . "store/newForm" ?> class="list-group-item">Add New Product</a>
+          <a href="#" class="list-group-item">Checkout</a>
+      </div>
 
-          <!-- Show the shopping cart, if it exists -->
-          <? if ($cart = $this->cart->contents()): ?>
-            <table class="table" id="shopping-cart">
-              <caption id="cart-header">Shopping Cart</caption>
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <? foreach ($cart as $product) { ?>
-                  <tr>
-                    <td><?= $product['name'] ?></td>
-                    <td><?= '$' . $product['subtotal'] ?></td>
-                    <td><?= form_input('item_' . $product['rowid'], $product['qty'], "class='form-control'", "required") ?></td>
-                    <td><?= anchor(base_url() . 'cart/remove/' . $product['rowid'], 'X'); ?></td>
-                  </tr>
-                <? } ?>
-              </tbody>
-              <td><strong>Total:</strong></td>
-              <td><?= '$' . $this->cart->total();?></td>  
-            </table>
-            
-          <? endif ?>
-      </div><!-- ./col-md-3 -->
+      <!-- Show the shopping cart, if it exists -->
+      <? if ($cart = $this->cart->contents()): ?>
+        
+        <table class="table" id="shopping-cart">
+          <caption id="cart-header">Shopping Cart</caption>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <? foreach ($cart as $product) { ?>
+              <tr>
+                <td><?= $product['name'] ?></td>
+                <td><?= '$' . $product['subtotal'] ?></td>
+                <td><?= form_input('item_' . $product['rowid'], $product['qty'], "class='form-control'", "required") ?></td>
+                <td><?= anchor(base_url() . 'cart/remove/' . $product['rowid'], "&times;", "class='cart-remove'"); ?></td>
+              </tr>
+            <? } ?>
+          </tbody>
+          <td><strong>Total:</strong></td>
+          <td><?= '$' . $this->cart->total();?></td>  
+        </table>
+        
+      <? endif ?>
+    </div><!-- ./col-md-3 -->
 
       <div class="col-md-9">
 
