@@ -1,18 +1,26 @@
 <?php
 	class Cart extends CI_Controller {
 
-		function __construct() {
-		  $this->load->library('cart');
-		  parent::__construct();		  		  
-		}
-
 		/* Add an item to the cart */
 		function add() {
-			$this->cart->insert($data);
+			$this->load->model('product_model');
+
+			// Fetch the posted products id
+			$product = $this->product_model->get($this->input->post('id'));
+
+			$product_data = array(
+				'id' => $product->id,
+				'qty' => 1,
+				'price' => $product->price,
+				'name' => $product->name
+			);
+			
+			// Add the product to the cart
+			$this->cart->insert($product_data);
 		}
 
 		/* Remove an item from the cart */
-		function remove() {			
+		function remove() {
 			$this->cart->update($data);
 		}
 
