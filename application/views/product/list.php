@@ -8,7 +8,10 @@
     
       <div class="list-group">
           <a href=<?= base_url() . "store/newForm" ?> class="list-group-item">Add New Product</a>
-          <a href="#" class="list-group-item">Checkout</a>
+          <?php if ($this->session->userdata('signed_in') && !$this->MUser->isAdmin($this->session->userdata('login'))): ?>
+            <a href="#" class="list-group-item">Checkout</a>
+          <? endif ?>
+          <a href="#" class="list-group-item">Update Cart</a>
       </div>
 
       <!-- Show the shopping cart, if it exists -->
@@ -30,7 +33,7 @@
                 <td><?= $product['name'] ?></td>
                 <td><?= '$' . $product['subtotal'] ?></td>
                 <td><?= form_input('item_' . $product['rowid'], $product['qty'], "class='form-control'", "required") ?></td>
-                <td><?= anchor(base_url() . 'cart/remove/' . $product['rowid'], "&times;", "class='cart-remove'"); ?></td>
+                <td><?= anchor(base_url() . 'cart/remove/' . $product['rowid'], "&times;", "id='cart-remove'"); ?></td>
               </tr>
             <? } ?>
           </tbody>
@@ -55,10 +58,11 @@
                 <p><?= $product->description ?></p>
                     
                 <!-- product actions -->
-				        <!-- if admin, show edit and delete links -->
-                <?= anchor(base_url() . "store/delete/$product->id",'Delete',"onClick='return confirm(\"Do you really want to delete this record?\");'"); ?>
-				        <?= anchor(base_url() . "store/editForm/$product->id",'Edit'); ?>
-				
+                <!-- if the admin is logged in, show product crud actions-->
+				        <?php if ($this->session->userdata('signed_in') && $this->MUser->isAdmin($this->session->userdata('login'))): ?>
+                  <?= anchor(base_url() . "store/delete/$product->id",'Delete',"onClick='return confirm(\"Do you really want to delete this record?\");'"); ?>
+  				        <?= anchor(base_url() . "store/editForm/$product->id",'Edit'); ?>
+				        <? endif ?>
                 <?= anchor(base_url() . "store/read/$product->id",'View'); ?>
               </div>
               <?= form_submit('action', 'Add to Cart', "class='btn btn-default'"); ?>

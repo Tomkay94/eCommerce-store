@@ -12,11 +12,11 @@
 		}
 
 		function create() {
-
+			
 		}
 
 		function new() {
-
+			
 		}
 
 		function show($id) {
@@ -32,7 +32,7 @@
 		}
 
 		function delete($id) {
-
+			
 		}
 
 	}

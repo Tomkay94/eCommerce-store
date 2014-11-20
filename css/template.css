@@ -67,10 +67,10 @@ nav ul li a:hover {
     font-size: 1.25em;
 }
 
-.cart-remove {
+#cart-remove {
     font-size: 25px;
 }
 
-.cart-remove:hover {
+#cart-remove:hover {
     text-decoration: none;
 }
