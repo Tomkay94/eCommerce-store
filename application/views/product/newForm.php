@@ -9,19 +9,19 @@
 	    <div class="form-group">
 			<?= form_label('Name'); ?> 
 			<?= form_error('name'); ?>
-			<?= form_input('name',set_value('name'), "class='form-control'", "required"); ?>
+			<?= form_input('name', set_value('name'), "class='form-control'", "required"); ?>
 	    </div>
 
 	    <div class="form-group">
 			<?= form_label('Description'); ?>
 			<?= form_error('description'); ?>
-			<?= form_input('description',set_value('description'), "class='form-control'", "required"); ?>
+			<?= form_input('description', set_value('description'), "class='form-control'", "required"); ?>
 	    </div>
 
 	    <div class="form-group">
 			<?= form_label('Price'); ?>
 			<?= form_error('price'); ?>
-			<?= form_input('price',set_value('price'), "class='form-control'", "required"); ?>
+			<?= form_input('price', set_value('price'), "class='form-control'", "required"); ?>
 	    </div>
 		
 
