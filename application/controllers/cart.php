@@ -33,6 +33,7 @@
 
 		/* Returns the shopping carts contents */
 		function show() {
+			$this->load->view('cart/index');
 			$this->cart->contents();
 		}
 

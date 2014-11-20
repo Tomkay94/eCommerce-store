@@ -7,12 +7,35 @@
 			<h2>Products</h2>
             <div class="list-group">
                 <a href=<?= base_url() . "store/newForm" ?> class="list-group-item">Add New Product</a>
-                <a href=<?= base_url() . "cart/show" ?> class="list-group-item">View Cart</a>
                 <a href="#" class="list-group-item">Checkout</a>
             </div>
-            <?php if ($cart = $this->cart->contents()): ?>
-                <?php print_r($cart); ?>
-            <?php endif ?>
+
+            <!-- Show the shopping cart, if it exists -->
+            <? if ($cart = $this->cart->contents()): ?>
+            <table class="table">
+                <caption id="cart-header">Shopping Cart</caption>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <? foreach ($cart as $product) { ?>
+                        <tr>
+                            <td><?= $product['name'] ?></td>
+                            <td><?= '$' . $product['subtotal'] ?></td>
+                            <td><?= $product['qty']?></td>
+                            <td><?= anchor(base_url() . 'cart/remove/' . $product['rowid'], 'X'); ?></td>
+                        </tr>
+                    <? } ?>
+                </tbody>
+                <td><strong>Total: <?= '$' . $this->cart->total();?></strong></td>
+            </table>
+
+            <? endif ?>
         </div>
 
         <div class="col-md-9">
@@ -29,7 +52,7 @@
                             <p><?= $product->description ?></p>
                             
                         	<!-- product actions -->
-							<!-- if admin, show edit, delete -->
+							<!-- if admin, show edit and delete links -->
                             <?= anchor(base_url() . "store/delete/$product->id",'Delete',"onClick='return confirm(\"Do you really want to delete this record?\");'"); ?>
 							<?= anchor(base_url() . "store/editForm/$product->id",'Edit'); ?>
 							
@@ -42,7 +65,7 @@
                 <?= form_close(); ?>
             <? } ?><!-- end foreach -->
             </div><!-- ./row -->
-            
+
         </div><!-- ./col-md-9 -->
     </div><!-- ./row -->
 </div><!-- ./container -->

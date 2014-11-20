@@ -61,3 +61,8 @@ nav ul li a:hover {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+#cart-header {
+    text-align: center;
+    font-size: 1.25em;
+}

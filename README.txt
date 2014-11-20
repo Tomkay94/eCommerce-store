@@ -11,7 +11,7 @@ Thanasi Karachotzitis g3karach
 sudo service apache2 restart
 
 *** Browser Details ***
-please use Google Chrome
+Please use Google Chrome
 
 *** How It Works ***
 
