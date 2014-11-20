@@ -64,6 +64,11 @@
           <td><strong>Total:</strong></td>
           <td><?= '$' . $this->cart->total();?></td>  
         </table>
+      
+        <div>
+          Before you can checkout<br>
+          You need to sign in first
+        </div>
         
       <?php endif ?>
     </div><!-- ./col-md-3 -->

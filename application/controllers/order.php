@@ -53,16 +53,19 @@ class Order extends CI_Controller {
     $this->load->library('form_validation');
     $this->load->model('MOrder');
 
-    $order = array(
-      $customer_id => $this->session->userdata('id'),
-      $order_date => $order_date,
-      $order_time => $order_time,
-      $total => $this->cart->total(),
-      $creditcard_number => $_POST['creditcard_number'],
-      $creditcard_month => $_POST['creditcard_month'],
-      $creditcard_year => $_POST['creditcard_year']
-    );
+    $order = new $this->MOrder();
+    $order->customer_id = $this->session->userdata('id');
+    $order->total = $this->cart->total();
+    $order->creditcard_number = $_POST['creditcard_number'];
+    $order->creditcard_month = $_POST['creditcard_month'];
+    $order->creditcard_year = $_POST['creditcard_year'];
 
+    if ($this->MOrder->insert($order, $this->cart->contents())) {
+      $this->session->set_flashdata('info', 'order successfully created, a email will be sent to you.');
+    } else {
+      $this->session->set_flashdata('warning', 'failed to process transaction');
+    }
+    redirect('order', 'store');
   }
 
   function delete($id) {

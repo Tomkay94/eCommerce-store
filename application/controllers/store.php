@@ -38,7 +38,6 @@ class Store extends CI_Controller {
   }
 
     function index() {
-        $this->load->model('product_model');
         $products = $this->product_model->getAll();
         $data = array(
             'title' => 'eStore\'s store front',
@@ -65,8 +64,6 @@ class Store extends CI_Controller {
         $fileUploadSuccess = $this->upload->do_upload();
 
         if ($this->form_validation->run() == true && $fileUploadSuccess) {
-            $this->load->model('product_model');
-
             $product = new Product();
             $product->name = $this->input->get_post('name');
             $product->description = $this->input->get_post('description');
@@ -96,7 +93,6 @@ class Store extends CI_Controller {
     }
 
     function read($id) {
-        $this->load->model('product_model');
         $product = $this->product_model->get($id);
         $data = array(
             'title' => 'Would you buy a '.$product->name.'?',
@@ -107,7 +103,6 @@ class Store extends CI_Controller {
     }
 
     function editForm($id) {
-        $this->load->model('product_model');
         $product = $this->product_model->get($id);
         $data = array(
             'title' => 'Editing product #'.$product->id,
@@ -130,7 +125,6 @@ class Store extends CI_Controller {
             $product->description = $this->input->get_post('description');
             $product->price = $this->input->get_post('price');
 
-            $this->load->model('product_model');
             $this->product_model->update($product);
             //Then we redirect to the index page again
             redirect('store/index', 'refresh');
@@ -150,8 +144,6 @@ class Store extends CI_Controller {
     }
 
     function delete($id) {
-        $this->load->model('product_model');
-
         if (isset($id))
             $this->product_model->delete($id);
 

@@ -9,6 +9,7 @@
   <br>
 
   <h2 class="container-header">Orders Table</h2>
+  <div>Please click on Show to see more details for that order.</div>
 
   <table class="table">
     <thead>
@@ -23,7 +24,7 @@
     foreach ($orders as $order) {
       echo "<tr>";
       echo "<td>" . $order->id . "</td>";
-      echo "<td>" . $this->Muser->find($order->customer_id)->login . "</td>";
+      echo "<td>" . $this->MUser->find($order->customer_id)->login . "</td>";
       echo "<td>" . $order->order_date . $order->order_time . "</td>";
       echo "<td>" . $order->total . "</td>";
 

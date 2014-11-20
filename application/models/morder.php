@@ -29,9 +29,9 @@ class MOrder extends CI_Model {
   function insert($order, $order_items) {
     $this->db->trans_start();
     // create order
+    $this->db->set('order_date', 'NOW()', FALSE);
+    $this->db->set('order_time', 'NOW()', FALSE);
     $this->db->insert("orders", array('customer_id' => $order->customer_id,
-                                      'order_date' => $order->order_date,
-                                      'order_time' => $order->order_time,
                                       'total' => $order->total,
                                       'creditcard_number' => $order->creditcard_number,
                                       'creditcard_month' => $order->creditcard_month,
