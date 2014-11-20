@@ -2,32 +2,38 @@
   
   	<h2 class="container-header">New Product</h2>
 
-	<?php
-		echo "<p>" . anchor('store/index','Back') . "</p>";
+	<?= "<p>" . anchor('store/index','Back') . "</p>"; ?>
 
-		echo form_open_multipart('store/create');
+	<?= form_open_multipart('store/create'); ?>
+    
+	    <div class="form-group">
+			<?= form_label('Name'); ?> 
+			<?= form_error('name'); ?>
+			<?= form_input('name',set_value('name'),"required"); ?>
+	    </div>
 
-		echo form_label('Name'); 
-		echo form_error('name');
-		echo form_input('name',set_value('name'),"required");
+	    <div class="form-group">
+			<?= form_label('Description'); ?>
+			<?= form_error('description'); ?>
+			<?= form_input('description',set_value('description'),"required"); ?>
+	    </div>
 
-		echo form_label('Description');
-		echo form_error('description');
-		echo form_input('description',set_value('description'),"required");
+	    <div class="form-group">
+			<?= form_label('Price'); ?>
+			<?= form_error('price'); ?>
+			<?= form_input('price',set_value('price'),"required"); ?>
+	    </div>
+		
 
-		echo form_label('Price');
-		echo form_error('price');
-		echo form_input('price',set_value('price'),"required");
+	    <div class="form-group">
+			<?= form_label('Photo'); ?>
+			<?php
+				if(isset($fileerror)) { $fileerror; }
+			?>
+		</div>
+			
+		<input type="file" name="userfile" size="20" />
+		<?= form_submit('submit', 'Create'); ?>
 
-		echo form_label('Photo');
-
-		if(isset($fileerror))
-			echo $fileerror;
-	?>
-
-	<input type="file" name="userfile" size="20" />
-<?php
-
-	echo form_submit('submit', 'Create');
-	echo form_close();
-?>
+	<?= form_close(); ?>
+</section>
