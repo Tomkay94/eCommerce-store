@@ -15,12 +15,14 @@
               echo anchor(base_url() . 'checkout/show', "Checkout", "class='list-group-item'");
             // }
           }
-          echo anchor(base_url() . 'cart/destroy', "Clear Cart",
-                      "class='list-group-item'".
-                      "onClick='return confirm(".
-                        '"You are about to remove all items from your shopping cart."'.
-                      ");'"
-                     );
+          if ($cart = $this->cart->contents()) {
+            echo anchor(base_url() . 'cart/destroy', "Clear Cart",
+                        "class='list-group-item'".
+                        "onClick='return confirm(".
+                          '"You are about to remove all items from your shopping cart."'.
+                        ");'"
+                       );
+          }
         ?>
       </div>
 

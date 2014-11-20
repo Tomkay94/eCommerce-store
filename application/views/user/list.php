@@ -1,9 +1,9 @@
 <section class="closed-container">
 
   <?php
-    echo anchor("user/delete_all", 'Delete All users except Admin',
+    echo anchor("user/delete_all", 'Delete all users and their orders (except Admin)',
                   "onClick='return confirm(".
-                    '"Do you really want to delete all your users?"'.
+                    '"DANGER: You are about to delete all users and their orders"'.
                   ");'")
   ?>
   <br>

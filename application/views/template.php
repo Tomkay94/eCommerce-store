@@ -28,6 +28,9 @@
               <li>
                 <a href="<?= base_url(); ?>user">User List</a>
               </li>
+              <li>
+                <a href="<?= base_url(); ?>order">Order List</a>
+              </li>
         <?php
             endif; // is signed in
         ?>
