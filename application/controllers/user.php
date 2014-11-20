@@ -64,7 +64,7 @@ class User extends CI_Controller {
       $login = $this->input->post('login');
       $pass = $this->input->post('pass');
 
-      $user = $this->MUser->get($login);
+      $user = $this->MUser->find_by_username($login);
 
       if (isset($user) && $user->passwordMatch($pass)) {
         $this->session->set_userdata('signed_in', true);
@@ -136,7 +136,7 @@ class User extends CI_Controller {
   }
 
   function edit($id) {
-    $user = $this->user_model->get($id);
+    $user = $this->MUser->find($id);
     $data = array(
       'title' => 'Editing user',
       'main' => 'user/edit',
@@ -145,8 +145,53 @@ class User extends CI_Controller {
     $this->load->view('template', $data);
   }
 
-  function update() {
-    
+  function update($id) {
+    $this->load->library('form_validation');
+//    $this->form_validation->set_rules('login', 'Username', 'required|is_unique[customers.login]');
+//    $this->form_validation->set_rules('email', 'Email', 'required|is_unique[customers.email]');
+    $this->form_validation->set_rules('first', 'First Name', 'required');
+    $this->form_validation->set_rules('last', 'Last Name', 'required');
+//    $this->form_validation->set_rules('pass_old', 'Old Password', 'required');
+    $this->form_validation->set_rules('pass', 'New Password', 'required');
+    $this->form_validation->set_rules('pass_conf', 'New Password Confirmation', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+        $this->session->set_flashdata('warning',
+          'Sorry, some of the data you provided does not pass our requirement filter.');
+        redirect('user/edit/'.$this->session->userdata('id'), 'refresh');
+
+    } else {
+
+      // only admin can modify other user's data
+      if (strtolower($this->session->userdata('login')) != 'admin') {
+        // never ever change this session variable!
+        $id = $this->session->userdata('id');
+      }
+
+      $user = $this->MUser->find($id);
+//      $user->login = $this->input->post('login');
+//      $user->email = $this->input->post('email');
+      $user->first = $this->input->post('first');
+      $user->last = $this->input->post('last');
+      $user->password = $this->input->post('pass');
+      $pass_conf = $this->input->post('pass_conf');
+//      $pass_old = $this->input->post('pass_old');
+
+      // check password confirmation
+      if (!$user->passwordMatch($pass_conf)) {
+        $this->session->set_flashdata('warning', 'Passwords do not match! Please try again.');
+        redirect('user/register', 'refresh');
+      }
+
+      if ($this->MUser->update($user)) {
+        $this->session->set_flashdata('info', 'User info successfully modified.');
+        redirect('user/show/'.$this->session->userdata('id'), 'refresh');
+      } else {
+        $this->session->set_flashdata('warning', 'Unsuccessful update');
+        redirect('user/edit/'.$this->session->userdata('id'), 'refresh');
+      }
+
+    }
   }
 
   function destroy() {

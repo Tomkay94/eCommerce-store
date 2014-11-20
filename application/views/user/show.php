@@ -7,5 +7,5 @@
 	echo "<p> First Name  = " . $user->first . "</p>";
 	echo "<p> Last Name  = " . $user->last . "</p>";
 		
-	echo "<p>" . anchor('user/edit','Edit') . "</p>";
+	echo "<p>" . anchor('user/edit/'.$user->id, 'Edit') . "</p>";
 ?>	
