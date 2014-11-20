@@ -27,7 +27,7 @@
                         <tr>
                             <td><?= $product['name'] ?></td>
                             <td><?= '$' . $product['subtotal'] ?></td>
-                            <td><?= $product['qty']?></td>
+                            <td><?= form_input('quantity', $product['qty'], "class='form-control'", "required") ?></td>
                             <td><?= anchor(base_url() . 'cart/remove/' . $product['rowid'], 'X'); ?></td>
                         </tr>
                     <? } ?>
