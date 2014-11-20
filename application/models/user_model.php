@@ -7,10 +7,14 @@ class User_model extends CI_Model {
     return $query->result('MUser');
   }
 
-  function get($id)
+  function get($login)
   {
-    $query = $this->db->get_where('customers',array('id' => $id));
-    return $query->row(0,'MUser');
+    $query = $this->db->get_where('customers', array('login' => $login));
+
+    if ($query && $query->num_rows() > 0)
+      return $query->row(0, 'MUser');
+    else
+      return null;
   }
 
   function delete($id) {

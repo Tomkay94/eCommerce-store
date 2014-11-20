@@ -6,4 +6,9 @@ class MUser {
   public $login;
   public $password;
   public $email;
+
+  function passwordMatch($pass) {
+    return $this->password == pass;
+  }
+
 }
