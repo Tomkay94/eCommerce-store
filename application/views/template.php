@@ -17,8 +17,15 @@
         <nav>
             <ul>
                 <li><a href="<?= base_url(); ?>">eStore</a></li>
+              <?php if ($this->session->userdata('signed_in') &&
+                        strtolower($this->session->userdata('login')) == 'admin'):  ?>
                 <li><a href="<?= base_url(); ?>user">User List</a></li>
+              <?php endif;
+                    if ($this->session->userdata('signed_in')): ?>
+                <li><a href="<?= base_url(); ?>user/logout">Sign out</a></li>
+              <?php else: ?>
                 <li><a href="<?= base_url(); ?>user/login">Sign in</a></li>
+              <?php endif ?>
             </ul>
         </nav>
 
