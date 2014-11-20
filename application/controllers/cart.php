@@ -1,61 +1,39 @@
 <?php
+	class Cart extends CI_Controller {
 
-	class Carts extends CI_Controller {
-
-		/* Constructor */
 		function __construct() {
-    		// Call the Controller constructor
-	    	parent::__construct();	
-    	}
-
-    	/* Displays all carts */
-		function index() {
-			$this->load->model('cart_model');
-    		$carts = $this->cart_model->getAll();
-    		$data['carts']=$carts;
-			$this->load->view('cart/index.php',$data);
+		  $this->load->library('cart');
+		  parent::__construct();		  		  
 		}
 
-		/* Displays a single cart */
-		function show($id) {
-			$this->load->model('cart_model');
-			$this->load->view('cart/show.php',$data);
+		/* Add an item to the cart */
+		function add() {
+			$this->cart->insert($data);
 		}
 
-		/* Displays a form to create a new cart */
-		function newForm() {
-			$this->load->view('cart/new.php');
+		/* Remove an item from the cart */
+		function remove() {			
+			$this->cart->update($data);
 		}
 
-		/* Displays a form to edit a cart */
-		function editForm($id) {
-			$this->load->model('cart_model');
-			$this->load->view('cart/edit.php',$data);
+		/* Update the cart */
+		function update() {
+			$this->cart->update();
 		}
 
-		/* Retrieve form values from new and creates the record */
-		function create($id) {
-			$this->load->model('cart_model');
-			redirect('store/index', 'refresh');		
-
-			/* Validations here */
+		/* Returns the shopping carts contents */
+		function show() {
+			$this->cart->contents();
 		}
 
-		/* Retrieve form values from edit and updates the record */
-		function update($id) {
-			$this->load->model('cart_model');
-			redirect('store/index', 'refresh');		
-
-			/* Validations here */
+		/* Calculates shopping cart total price */
+		function total() {
+			echo $this->cart->total();			
 		}
 
-		/* Destroy this cart */
-		function delete($id) {
-			$this->load->model('cart_model');
-			if (isset($id))  {
-				$this->cart_model->delete($id);
-			}
-			redirect('store/index', 'refresh');
+		/* Destroys the shopping cart */
+		function destroy() {
+			$this->cart->destroy();
 		}
 	}
 ?>
