@@ -94,12 +94,12 @@ class User extends CI_Controller {
 
   function create() {
     $this->load->library('form_validation');
-    $this->form_validation->set_rules('login', 'Username', 'required|is_unique[customers.login]');
-    $this->form_validation->set_rules('email', 'Email', 'required|is_unique[customers.email]');
-    $this->form_validation->set_rules('first', 'First Name', 'required');
-    $this->form_validation->set_rules('last', 'Last Name', 'required');
-    $this->form_validation->set_rules('pass', 'Password', 'required');
-    $this->form_validation->set_rules('pass_conf', 'Password Confirmation', 'required');
+    $this->form_validation->set_rules('login', 'Username', 'required|xss_clean|is_unique[customers.login]');
+    $this->form_validation->set_rules('email', 'Email', 'required|xss_clean|is_unique[customers.email]|valid_email');
+    $this->form_validation->set_rules('first', 'First Name', 'required|xss_clean');
+    $this->form_validation->set_rules('last', 'Last Name', 'required|xss_clean');
+    $this->form_validation->set_rules('pass', 'Password', 'required|xss_clean|matches[pass_conf]');
+    $this->form_validation->set_rules('pass_conf', 'Password Confirmation', 'required|xss_clean');
 
     if ($this->form_validation->run() == FALSE) {
         $this->session->set_flashdata('warning',
@@ -152,10 +152,10 @@ class User extends CI_Controller {
 
   function update($id) {
     $this->load->library('form_validation');
-    $this->form_validation->set_rules('first', 'First Name', 'required');
-    $this->form_validation->set_rules('last', 'Last Name', 'required');
-    $this->form_validation->set_rules('pass', 'New Password', 'required');
-    $this->form_validation->set_rules('pass_conf', 'New Password Confirmation', 'required');
+    $this->form_validation->set_rules('first', 'First Name', 'required|xss_clean');
+    $this->form_validation->set_rules('last', 'Last Name', 'required|xss_clean');
+    $this->form_validation->set_rules('pass', 'New Password', 'required|matches[pass_conf]|xss_clean');
+    $this->form_validation->set_rules('pass_conf', 'New Password Confirmation', 'required|xss_clean');
 
     if ($this->form_validation->run() == FALSE) {
         $this->session->set_flashdata('warning',
