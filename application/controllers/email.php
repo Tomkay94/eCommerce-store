@@ -9,7 +9,7 @@ class Email extends CI_Controller {
   }
 
   /* Sends purchase receipt to user */
-  function send_mail($user) {
+  function send_mail() {
     // Setup the email protocol configuration
     $config = Array(
 	  	'protocol' => 'smtp',
@@ -27,16 +27,18 @@ class Email extends CI_Controller {
     $this->load->library('email', $config);
     $this->email->set_newline("\r\n");
     $this->email->from('estore.mailer@gmail.com');
-    $this->email->to($user->email);
+    $this->email->to($this->session->userdata('id')['email']);
     $this->email->subject('Purchase Receipt');
     $this->email->message($message);
   
   	// Attempt to send the email
     if($this->email->send()) {
-      echo 'Purchase receipt successfully sent to ' . $user->email . '!';
+      $this->session->set_flashdata('success', 'Purchase receipt successfully sent to ' . $this->session->userdata('id')['email'] . '!');
     } else {
      show_error($this->email->print_debugger());
     }
+
+    redirect('store/index', 'refresh');
 	}
 }
 

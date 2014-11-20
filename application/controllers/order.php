@@ -54,7 +54,7 @@ class Order extends CI_Controller {
     $this->load->model('MOrder');
 
     $order = array(
-      $customer_id => $this->session->userdata('id'),
+      $customer_id => $this->session->userdata('id')['id'],
       $order_date => $order_date,
       $order_time => $order_time,
       $total => $this->cart->total(),
@@ -63,6 +63,8 @@ class Order extends CI_Controller {
       $creditcard_year => $_POST['creditcard_year']
     );
 
+    // Send the order email
+    redirect('email/send_mail', 'refresh');
   }
 
   function delete($id) {
