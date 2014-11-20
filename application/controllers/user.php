@@ -8,18 +8,17 @@ class User extends CI_Controller {
     $this->load->model('user_model');
   }
 
-  // public?
   function _remap($method, $params = array()) {
     // enforce access control to protected functions
     $protected = array('index', 'show', 'edit', 'update', 'destroy');
 
     // authentication
-    if (in_array($method, $protected) && !$this->session->userdata('user')) {
+    if (in_array($method, $protected) && !$this->session->userdata('login')) {
       $this->session->set_flashdata('warning', 'we will need to authenticate you first!');
       redirect('user/login', 'refresh');
     }
 
-    // TODO: authorization???
+    // TODO: add authorization???
 
     return call_user_func_array(array($this, $method), $params);
   }
@@ -54,7 +53,33 @@ class User extends CI_Controller {
   }
 
   function process_login() {
-    
+    $this->load->library('form_validation');
+    $this->form_validation->set_rules('login', 'Username', 'required');
+    $this->form_validation->set_rules('pass', 'Password', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+        $this->session->set_flashdata('warning', 'You have not filled in the required fields');
+        redirect('user/login', 'refresh');
+
+    } else {
+      $login = $this->input->post('login');
+      $pass = $this->input->post('pass');
+
+      $this->load->model('user_model');
+      $user = $this->user_model->get($login);
+
+      if (isset($user) && $user->passwordMatch($pass)) {
+        $this->session->set_userdata($user);
+        $data = array(
+          'title' => 'Welcome back!',
+          'main' => 'store'
+        );
+        $this->load->view('template', $data);
+      } else {
+        $this->session->set_flashdata('warning', 'Incorrect username or password!');
+        redirect('user/login', 'refresh');
+      }
+    }
   }
 
   // new action
