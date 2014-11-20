@@ -2,24 +2,29 @@
 
 class Checkout extends CI_Controller {
 
-	function __construct() {
+  function __construct() {
     // Call the Controller constructor
     parent::__construct();
-	}
+  }
 
-	function show() {
-		$this->load->helper('date');
-		$this->load->view('checkout/show');
-		// show a view that has a form for the credit card showing the order
-	}
+  function show() {
+    $this->load->helper('date');
 
-	function validate_order() {
-		$valid = TRUE;
-		
-		if($valid) {
-			// create the order record 
-		}
-	}
+    // show a view that has a form for the credit card showing the order
+    $data = array(
+        'title' => 'Checkout',
+        'main' => 'checkout/show'
+    );
+    $this->load->view('template', $data);
+  }
+
+  function validate_order() {
+    $valid = TRUE;
+
+    if($valid) {
+      // create the order record
+    }
+  }
 }
 
 ?>
