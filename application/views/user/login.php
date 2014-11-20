@@ -3,7 +3,6 @@
   <h2 class="container-header">Sign in</h2>
   
   <?= form_open('user/process_login', "role='form'") ?>
-
     <div class="form-group">
       <?= form_error('login')?>
       <?= form_label('Username')?>
@@ -18,7 +17,6 @@
 
     <br>
     <?= form_submit('submit', 'Sign in', "class='btn btn-default'")?>
-
   <?= form_close()?>
 
   <br>
