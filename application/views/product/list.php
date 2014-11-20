@@ -12,7 +12,7 @@
               echo anchor(base_url() . 'store/newForm', "Add New Product", "class='list-group-item'");
             }
             // else { // admin can't check out in specification
-              echo anchor(base_url() . '?', "Checkout", "class='list-group-item'");
+              echo anchor(base_url() . 'checkout/show', "Checkout", "class='list-group-item'");
             // }
           }
           echo anchor(base_url() . 'cart/destroy', "Clear Cart",
