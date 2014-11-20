@@ -19,8 +19,8 @@ class Store extends CI_Controller {
 
   function _remap($method, $params = array()) {
     // enforce access control to protected functions
-    $protected = array('newForm', 'create', 'editForm', 'update', 'delete', 'delete_all');
-    $admin_only = array('newForm', 'create', 'editForm', 'update', 'delete', 'delete_all');
+    $protected = array('newForm', 'create', 'editForm', 'update', 'delete');
+    $admin_only = array('newForm', 'create', 'editForm', 'update', 'delete');
 
     // authentication
     if (in_array($method, $protected) && !$this->session->userdata('signed_in')) {
