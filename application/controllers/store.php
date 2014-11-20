@@ -38,9 +38,9 @@ class Store extends CI_Controller {
 
     function create() {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('name','Name','required|is_unique[products.name]');
-        $this->form_validation->set_rules('description','Description','required');
-        $this->form_validation->set_rules('price','Price','required');
+        $this->form_validation->set_rules('name','Name','required|is_unique[products.name]|xss_clean');
+        $this->form_validation->set_rules('description','Description','required|xss_clean');
+        $this->form_validation->set_rules('price','Price','required|xss_clean|numeric');
 
         $fileUploadSuccess = $this->upload->do_upload();
 
@@ -99,9 +99,9 @@ class Store extends CI_Controller {
 
     function update($id) {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('name','Name','required');
-        $this->form_validation->set_rules('description','Description','required');
-        $this->form_validation->set_rules('price','Price','required');
+        $this->form_validation->set_rules('name','Name','required|xss_clean');
+        $this->form_validation->set_rules('description','Description','required|xss_clean');
+        $this->form_validation->set_rules('price','Price','required|numeric|xss_clean');
 
         if ($this->form_validation->run() == true) {
             $product = new Product();
