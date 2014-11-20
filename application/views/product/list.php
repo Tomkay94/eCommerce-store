@@ -7,8 +7,8 @@
 			<h2>Products</h2>
             <div class="list-group">
                 <a href=<?= base_url() . "store/newForm" ?> class="list-group-item">Add New Product</a>
-                <a href="#" class="list-group-item">Category 2</a>
-                <a href="#" class="list-group-item">Category 3</a>
+                <a href=<?= base_url() . "cart/show" ?> class="list-group-item">View Cart</a>
+                <a href="#" class="list-group-item">Checkout</a>
             </div>
             <?php if ($cart = $this->cart->contents()): ?>
                 <?php print_r($cart); ?>
@@ -29,9 +29,11 @@
                             <p><?= $product->description ?></p>
                             
                         	<!-- product actions -->
-							<?= anchor(base_url() . "store/delete/$product->id",'Delete',"onClick='return confirm(\"Do you really want to delete this record?\");'"); ?>
+							<!-- if admin, show edit, delete -->
+                            <?= anchor(base_url() . "store/delete/$product->id",'Delete',"onClick='return confirm(\"Do you really want to delete this record?\");'"); ?>
 							<?= anchor(base_url() . "store/editForm/$product->id",'Edit'); ?>
-							<?= anchor(base_url() . "store/read/$product->id",'View'); ?>
+							
+                            <?= anchor(base_url() . "store/read/$product->id",'View'); ?>
                         </div>
                         <?= form_submit('action', 'Add to Cart', "class='btn btn-default'"); ?>
                     </div>
@@ -40,6 +42,7 @@
                 <?= form_close(); ?>
             <? } ?><!-- end foreach -->
             </div><!-- ./row -->
+            
         </div><!-- ./col-md-9 -->
     </div><!-- ./row -->
 </div><!-- ./container -->
