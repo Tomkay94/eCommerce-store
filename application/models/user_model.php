@@ -22,11 +22,7 @@ class User_model extends CI_Model {
   }
 
   function insert($user) {
-    return $this->db->insert("customers", array('first' => $user->first,
-                                                'last' => $user->last,
-                                                'login' => $user->login,
-                                                'password' => $user->password,
-                                                'email' => $user->email));
+    return $this->db->insert("customers", $user);
   }
 
   function update($user) {

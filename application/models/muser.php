@@ -8,7 +8,7 @@ class MUser {
   public $email;
 
   function passwordMatch($pass) {
-    return $this->password == pass;
+    return $this->password == $pass;
   }
 
 }

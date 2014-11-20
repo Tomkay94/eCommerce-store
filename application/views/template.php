@@ -22,12 +22,25 @@
             </ul>
         </nav>
 
-      <?php if ($this->session->flashdata('warning')): ?>
+      <?php
+        if ($this->session->flashdata('warning') ||
+            $this->session->flashdata('info')) {
+      ?>
         <br><br>
-        <div class="alert alert-warning" role="alert">
-          <?= $this->session->flashdata('warning') ?>
-        </div>
-      <?php endif ?>
+        <?php if ($this->session->flashdata('warning')): ?>
+          <div class="alert alert-warning" role="alert">
+            <?= $this->session->flashdata('warning') ?>
+          </div>
+        <?php endif;
+
+              if ($this->session->flashdata('info')): ?>
+          <div class="alert alert-info" role="alert">
+            <?= $this->session->flashdata('info') ?>
+          </div>
+      <?php
+              endif;
+        }
+      ?>
 
         <div id="main">
             <?php $this->load->view($main); ?>
