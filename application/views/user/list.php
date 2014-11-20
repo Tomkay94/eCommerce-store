@@ -22,6 +22,9 @@
     </thead>
   <?php
     foreach ($users as $user) {
+      if ($this->MUser->isAdmin($user->login)) {
+        continue;
+      }
       echo "<tr>";
       echo "<td>" . $user->id . "</td>";
       echo "<td>" . $user->login . "</td>";
