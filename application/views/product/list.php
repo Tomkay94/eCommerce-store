@@ -11,7 +11,7 @@
           <?php if ($this->session->userdata('signed_in') && !$this->MUser->isAdmin($this->session->userdata('login'))): ?>
             <a href="#" class="list-group-item">Checkout</a>
           <? endif ?>
-          <a href="#" class="list-group-item">Update Cart</a>
+          <a href=<?= base_url() . 'cart/destroy' ?> class="list-group-item">Clear Cart</a>
       </div>
 
       <!-- Show the shopping cart, if it exists -->
