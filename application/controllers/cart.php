@@ -24,16 +24,17 @@
 		/* Remove an item from the cart */
 		function remove() {
 			$this->cart->update($data);
+			redirect('store');
 		}
 
 		/* Update the cart */
 		function update() {
 			$this->cart->update();
+			redirect('store');
 		}
 
 		/* Returns the shopping carts contents */
 		function show() {
-			$this->load->view('cart/index');
 			$this->cart->contents();
 		}
 
@@ -45,6 +46,7 @@
 		/* Destroys the shopping cart */
 		function destroy() {
 			$this->cart->destroy();
+			redirect('store');
 		}
 	}
 ?>
