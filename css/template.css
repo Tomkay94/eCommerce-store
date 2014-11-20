@@ -47,11 +47,21 @@ nav ul li a:hover {
 .closed-container {
     width: 40%;
     margin: 0 auto;
-    background: #d7d7d7;
+    background: #e7e7e7;
     padding: 25px;
     border-radius: 7px;
 }
 
+.closed-container img {
+    text-align: center;
+}
+
 .container-header {
     text-align: center;
+}
+
+.caption p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

@@ -2,15 +2,25 @@
   
   	<h2 class="container-header">Product Entry</h2>
 
-	<?php 
-		echo "<p>" . anchor('store/index','Back') . "</p>";
+	<p><?= anchor('store/index','Back') ?></p>
+	<?= "<img src='" . base_url() . "images/product/" . $product->photo_url . "' width='320px' height='150px'/>"; ?>
 
-		echo "<p> ID = " . $product->id . "</p>";
-		echo "<p> NAME = " . $product->name . "</p>";
-		echo "<p> Description = " . $product->description . "</p>";
-		echo "<p> Price = " . $product->price . "</p>";
-		echo "<p><img src='" . base_url() . "images/product/" . $product->photo_url . "' width='100px'/></p>";
-			
-	?>	
-
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Desc</th>
+				<th>Price</th>	
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><?= $product->id ?></td>
+				<td><?= $product->description ?></td>
+				<td><?= $product->name ?></td>
+				<td><?= $product->price ?></td>
+			</tr>
+		</tbody>
+	</table>
 </section>
