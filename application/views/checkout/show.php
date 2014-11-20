@@ -35,4 +35,5 @@
 		<?= form_submit('submit', 'Create Order', "class='btn btn-default'")?>
 	<?= form_close()?>
 
+	<?= print_r($this->cart->contents()) ?>
 </section>

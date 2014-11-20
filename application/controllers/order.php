@@ -50,7 +50,19 @@ class Order extends CI_Controller {
   }
 
   function create() {
-    // TODO
+    $this->load->library('form_validation');
+    $this->load->model('MOrder');
+
+    $order = array(
+      $customer_id => $this->session->userdata('id'),
+      $order_date => $order_date,
+      $order_time => $order_time,
+      $total => $this->cart->total(),
+      $creditcard_number => $_POST['creditcard_number'],
+      $creditcard_month => $_POST['creditcard_month'],
+      $creditcard_year => $_POST['creditcard_year']
+    );
+
   }
 
   function delete($id) {
