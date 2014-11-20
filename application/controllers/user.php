@@ -5,7 +5,6 @@ class User extends CI_Controller {
   function __construct() {
     // Call the Controller constructor
     parent::__construct();
-    $this->load->model('user_model');
   }
 
   function _remap($method, $params = array()) {
@@ -25,7 +24,7 @@ class User extends CI_Controller {
 
   // user table for admin
   function index() {
-    $users = $this->user_model->getAll();
+    $users = $this->MUser->all();
     $data = array(
       'title' => 'list of users',
       'main' => 'user/list',
@@ -35,9 +34,9 @@ class User extends CI_Controller {
   }
 
   function show($id) {
-    $user = $this->user_model->get($id);
+    $user = $this->MUser->find($id);
     $data = array(
-      'title' => 'Account Info for '.$product->login,
+      'title' => 'Account Info for '.$user->login,
       'main' => 'user/show',
       'user' => $user
     );
@@ -65,8 +64,7 @@ class User extends CI_Controller {
       $login = $this->input->post('login');
       $pass = $this->input->post('pass');
 
-      $this->load->model('user_model');
-      $user = $this->user_model->get($login);
+      $user = $this->MUser->get($login);
 
       if (isset($user) && $user->passwordMatch($pass)) {
         $this->session->set_userdata('signed_in', true);
@@ -119,9 +117,7 @@ class User extends CI_Controller {
         redirect('user/register', 'refresh');
       }
 
-      $this->load->model('user_model');
-
-      if ($this->user_model->insert($user)) {
+      if ($this->MUser->insert($user)) {
         $this->session->set_flashdata('info', 'Success! You are now registered.');
         redirect('user/login', 'refresh');
       } else {
