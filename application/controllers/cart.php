@@ -5,18 +5,20 @@
 		function add() {
 			$this->load->model('product_model');
 
-			// Fetch the posted products id
+			/* Fetch the posted product object */
 			$product = $this->product_model->get($this->input->post('id'));
 
+			/* Build the cart item product data */
 			$product_data = array(
-				'id' => $product->id,
+				'id' => $this->input->post('id'),
 				'qty' => 1,
 				'price' => $product->price,
 				'name' => $product->name
 			);
 			
-			// Add the product to the cart
+			/* Add the product to the cart */
 			$this->cart->insert($product_data);
+			redirect('store');
 		}
 
 		/* Remove an item from the cart */
@@ -36,7 +38,7 @@
 
 		/* Calculates shopping cart total price */
 		function total() {
-			echo $this->cart->total();			
+			$this->cart->total();			
 		}
 
 		/* Destroys the shopping cart */

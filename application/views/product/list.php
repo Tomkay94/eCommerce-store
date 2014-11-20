@@ -10,6 +10,9 @@
                 <a href="#" class="list-group-item">Category 2</a>
                 <a href="#" class="list-group-item">Category 3</a>
             </div>
+            <?php if ($cart = $this->cart->contents()): ?>
+                <?php print_r($cart); ?>
+            <?php endif ?>
         </div>
 
         <div class="col-md-9">
