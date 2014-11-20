@@ -40,7 +40,7 @@
       <?= form_input('pass2', "", "class='form-control'", "required")?>
     </div>
 
-    <?= '<br>'?>
+    <br>
     <?= form_submit('submit', 'Register', "class='btn btn-default'")?>
   
   <?= form_close()?>

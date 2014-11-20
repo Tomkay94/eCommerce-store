@@ -8,6 +8,22 @@ class User extends CI_Controller {
     $this->load->model('user_model');
   }
 
+  // public?
+  function _remap($method, $params = array()) {
+    // enforce access control to protected functions
+    $protected = array('index', 'show', 'edit', 'update', 'destroy');
+
+    // authentication
+    if (in_array($method, $protected) && !$this->session->userdata('user')) {
+      $this->session->set_flashdata('warning', 'we will need to authenticate you first!');
+      redirect('user/login', 'refresh');
+    }
+
+    // TODO: authorization???
+
+    return call_user_func_array(array($this, $method), $params);
+  }
+
   // user table for admin
   function index() {
     $users = $this->user_model->getAll();
@@ -27,6 +43,18 @@ class User extends CI_Controller {
       'user' => $user
     );
     $this->load->view('template', $data);
+  }
+
+  function login() {
+    $data = array(
+      'title' => 'Sign in',
+      'main' => 'user/login'
+    );
+    $this->load->view('template', $data);
+  }
+
+  function process_login() {
+    
   }
 
   // new action
@@ -56,7 +84,7 @@ class User extends CI_Controller {
     
   }
 
-  function delete() {
+  function destroy() {
     
   }
 

@@ -18,9 +18,16 @@
             <ul>
                 <li><a href="<?= base_url(); ?>">eStore</a></li>
                 <li><a href="<?= base_url(); ?>user">User List</a></li>
-                <li><a href="<?= base_url(); ?>user/register">Sign up</a></li>
+                <li><a href="<?= base_url(); ?>user/login">Sign in</a></li>
             </ul>
         </nav>
+
+      <?php if ($this->session->flashdata('warning')): ?>
+        <br><br>
+        <div class="alert alert-warning" role="alert">
+          <?= $this->session->flashdata('warning') ?>
+        </div>
+      <?php endif ?>
 
         <div id="main">
             <?php $this->load->view($main); ?>
