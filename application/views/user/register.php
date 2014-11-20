@@ -31,13 +31,13 @@
     <div class="form-group">
       <?= form_error('pass')?>
       <?= form_label('Password')?>
-      <?= form_input('pass', "", "class='form-control'", "required")?>
+      <?= form_password('pass', "", "class='form-control'", "required")?>
     </div>
 
     <div class="form-group">
       <?= form_error('pass_conf')?>
       <?= form_label('Password Confirmation')?>
-      <?= form_input('pass_conf', "", "class='form-control'", "required")?>
+      <?= form_password('pass_conf', "", "class='form-control'", "required")?>
     </div>
 
     <br>
