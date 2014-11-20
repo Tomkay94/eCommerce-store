@@ -8,16 +8,32 @@
 			/* Fetch the posted product object */
 			$product = $this->product_model->get($this->input->post('id'));
 
-			/* Build the cart item product data */
-			$product_data = array(
-				'id' => $this->input->post('id'),
-				'qty' => 1,
-				'price' => $product->price,
-				'name' => $product->name
-			);
-			
-			/* Add the product to the cart */
-			$this->cart->insert($product_data);
+			$item_not_in_cart = TRUE;
+	        $cart_contents = $this->cart->contents();
+
+	        // If the item is in the cart, update its quantity.
+	        foreach ($cart_contents as $item) {
+	            if ($item['id'] == $this->input->post('id')) {
+	                $this->cart->update(array(
+	                	'rowid' => $item['rowid'],
+	                	'qty' => $item['qty'] + 1
+	                ));
+                	$item_not_in_cart = FALSE;
+                	break;
+				}
+	        }
+
+	        // The item was not in the cart, insert it.
+	        if ($item_not_in_cart) {
+	            $data = array(
+	                'id' => $this->input->post('id'),
+	                'qty' => 1,
+	              	'price' => $product->price,
+					'name' => $product->name
+	            );
+	            $this->cart->insert($data);
+	        }
+	        
 			redirect('store');
 		}
 
