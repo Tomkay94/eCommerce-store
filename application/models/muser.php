@@ -11,6 +11,10 @@ class MUser extends CI_Model {
     return $this->password == $pass;
   }
 
+  function isAdmin($login) {
+    return strtolower($login) == 'admin';
+  }
+
   /*
     DB Access
     Note: these functions do not mutate $this user itself
@@ -52,7 +56,13 @@ class MUser extends CI_Model {
   }
 
   function delete($id) {
-    return $this->db->delete("customers",array('id' => $id ));
+    return $this->db->delete("customers", array('id' => $id ));
+  }
+
+  // except admin user
+  function delete_all() {
+    $this->db->where("UPPER(customers.login) != 'ADMIN'");
+    return $this->db->delete("customers");
   }
 
 }

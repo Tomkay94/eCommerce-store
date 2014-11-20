@@ -1,5 +1,13 @@
 <section class="closed-container">
-  
+
+  <?php
+    echo anchor("user/delete_all", 'Delete All users except Admin',
+                  "onClick='return confirm(".
+                    '"Do you really want to delete all your users?"'.
+                  ");'")
+  ?>
+  <br>
+
   <h2 class="container-header">User Table</h2>
 
   <table>

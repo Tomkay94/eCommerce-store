@@ -18,7 +18,7 @@
             <ul>
                 <li><a href="<?= base_url(); ?>">eStore</a></li>
               <?php if ($this->session->userdata('signed_in') &&
-                        strtolower($this->session->userdata('login')) == 'admin'):  ?>
+                        $this->MUser->isAdmin($this->session->userdata('login'))):  ?>
                 <li><a href="<?= base_url(); ?>user">User List</a></li>
               <?php endif;
                     if ($this->session->userdata('signed_in')): ?>

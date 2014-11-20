@@ -1,11 +1,11 @@
 <?php
 
 class Email extends CI_Controller {
-	
-	/* Constructor */
-	function __construct() {
+
+  /* Constructor */
+  function __construct() {
     // Call the Controller constructor
-	  parent::__construct();	
+    parent::__construct();	
   }
 
   /* Sends purchase receipt to user */

@@ -2,7 +2,6 @@
   
   	<h2 class="container-header">Edit Product</h2>
 
-	 
 		<p><?= anchor('store/index','Back')?></p>
 		
 		<?= form_open("store/update/$product->id"); ?>

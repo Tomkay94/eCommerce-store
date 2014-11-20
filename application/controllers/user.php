@@ -9,7 +9,8 @@ class User extends CI_Controller {
 
   function _remap($method, $params = array()) {
     // enforce access control to protected functions
-    $protected = array('index', 'show', 'edit', 'update', 'destroy');
+    $protected = array('index', 'show', 'edit', 'update', 'delete', 'delete_all');
+    $admin_only = array('delete', 'delete_all');
 
     // authentication
     if (in_array($method, $protected) && !$this->session->userdata('signed_in')) {
@@ -17,7 +18,11 @@ class User extends CI_Controller {
       redirect('user/login', 'refresh');
     }
 
-    // TODO: add authorization???
+    // authorization
+    if (in_array($method, $admin_only) && !$this->MUser->isAdmin($this->session->userdata('login'))) {
+      $this->session->set_flashdata('warning', 'only admin can perform this operation');
+      redirect('', 'refresh');
+    }
 
     return call_user_func_array(array($this, $method), $params);
   }
@@ -147,11 +152,8 @@ class User extends CI_Controller {
 
   function update($id) {
     $this->load->library('form_validation');
-//    $this->form_validation->set_rules('login', 'Username', 'required|is_unique[customers.login]');
-//    $this->form_validation->set_rules('email', 'Email', 'required|is_unique[customers.email]');
     $this->form_validation->set_rules('first', 'First Name', 'required');
     $this->form_validation->set_rules('last', 'Last Name', 'required');
-//    $this->form_validation->set_rules('pass_old', 'Old Password', 'required');
     $this->form_validation->set_rules('pass', 'New Password', 'required');
     $this->form_validation->set_rules('pass_conf', 'New Password Confirmation', 'required');
 
@@ -163,19 +165,16 @@ class User extends CI_Controller {
     } else {
 
       // only admin can modify other user's data
-      if (strtolower($this->session->userdata('login')) != 'admin') {
+      if (!$this->MUser->isAdmin($this->session->userdata('login'))) {
         // never ever change this session variable!
         $id = $this->session->userdata('id');
       }
 
       $user = $this->MUser->find($id);
-//      $user->login = $this->input->post('login');
-//      $user->email = $this->input->post('email');
       $user->first = $this->input->post('first');
       $user->last = $this->input->post('last');
       $user->password = $this->input->post('pass');
       $pass_conf = $this->input->post('pass_conf');
-//      $pass_old = $this->input->post('pass_old');
 
       // check password confirmation
       if (!$user->passwordMatch($pass_conf)) {
@@ -194,8 +193,32 @@ class User extends CI_Controller {
     }
   }
 
-  function destroy() {
-    
+  function delete($id) {
+    // only admin can reach here
+    if ($this->session->userdata('id') == $id) {
+      $this->session->set_flashdata('warning', 'Admin account cannot be removed!');
+      redirect('user/show/'.$this->session->userdata('id'), 'refresh');
+    }
+
+    if ($this->MUser->delete($id)) {
+      $this->session->set_flashdata('warning', 'Account Deleted!');
+      redirect('user', 'refresh');
+    } else {
+      $this->session->set_flashdata('warning', 'Error deleteing account.');
+      redirect('user', 'refresh');
+    }
+  }
+
+  function delete_all() {
+    // only admin can reach here
+
+    if ($this->MUser->delete_all()) {
+      $this->session->set_flashdata('warning', 'Accounts Removed!');
+      redirect('user', 'refresh');
+    } else {
+      $this->session->set_flashdata('warning', 'Error deleteing account.');
+      redirect('user', 'refresh');
+    }
   }
 
 }
