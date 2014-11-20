@@ -33,8 +33,10 @@
                   </tr>
                 <? } ?>
               </tbody>
-              <td><strong>Total: <?= '$' . $this->cart->total();?></strong></td>
+              <td><strong>Total:</strong></td>
+              <td><?= '$' . $this->cart->total();?></td>  
             </table>
+            
           <? endif ?>
       </div><!-- ./col-md-3 -->
 

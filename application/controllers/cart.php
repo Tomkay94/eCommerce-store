@@ -22,8 +22,11 @@
 		}
 
 		/* Remove an item from the cart */
-		function remove() {
-			$this->cart->update($data);
+		function remove($rowid) {
+			$this->cart->update(array(
+					'rowid' => $rowid,
+					'qty' => 0 
+			));
 			redirect('store');
 		}
 
