@@ -8,6 +8,10 @@ Thanasi Karachotzitis g3karach
 /var/www/estore
 
 *** Apache Instructions ***
+// Make sure an email client is installed
+sudo apt-get install postfix
+
+// Start apache
 sudo service apache2 restart
 
 *** Browser Details ***
