@@ -1,5 +1,12 @@
 <p>Items purchased</p>
 ======================
+<br />
+<p>Customer Name:
+<?php print_r($this->MUser->find($order->customer_id)->first); ?>
+,
+<?php print_r($this->MUser->find($order->customer_id)->last); ?>
+<br />
+======================
 <table class="table">
   <thead>
     <tr>
