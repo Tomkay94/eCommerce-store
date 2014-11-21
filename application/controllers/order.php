@@ -87,10 +87,10 @@ class Order extends CI_Controller {
       // attempt to create an Order record
       if ($order->id = $this->MOrder->insert($order, $this->cart->contents())) {
         $this->session->set_flashdata('info', 'order successfully created, a email will be sent to you.');
-        // remove contents from cart as those were just bought
-        $this->cart->destroy();
         // Send the order email
         $this->send_mail($order);
+        // remove contents from cart as those were just bought
+        $this->cart->destroy();
       }
 
       // the order record could not be created  
@@ -135,13 +135,28 @@ class Order extends CI_Controller {
   // simpler to just put the method here..
   function send_mail($order) {
     $this->email->initialize($this->config->config);
+    $this->email->set_mailtype("html");
+
+
 
     $this->email->from('estore.mailer@gmail.com', 'eStore-Mailer-no-reply');
     $this->email->to($this->session->userdata('email'));
 
+    $order_items = $this->Order_Item->find_all_from_order($order->id);
+    
     $this->email->subject('Your purchase receipt:');
-    $this->email->message("Money charged through your creditcard ($order->creditcard_number): $$order->total 
-    TXid is $order->id, please keep it safe.");
+    $receipt = "
+    <p>Hi there,</p>
+    <p>Thanks for your order at eStore. You were charged <strong>$$order->total</strong> 
+    through your creditcard ($order->creditcard_number).</p>
+    
+    $order_items
+
+    <p>Your order ID is $order->id.</p>
+    <p>Please keep it safe for future reference.</p>
+    ";
+
+    $this->email->message($receipt);
 
     // Attempt to send the email
     if($this->email->send()) {
