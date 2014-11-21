@@ -91,6 +91,7 @@ class Order extends CI_Controller {
         $this->send_mail($order);
         // remove contents from cart as those were just bought
         $this->cart->destroy();
+        redirect('order/receipt_landing', 'refresh');
       }
 
       // the order record could not be created  
@@ -132,6 +133,29 @@ class Order extends CI_Controller {
     redirect('order', 'refresh');
   }
 
+  function receipt_landing($id) {
+    $order = $this->MOrder->find($id);
+    $data = array(
+      'title' => 'preparing your receipt..',
+      'main' => 'order/receipt_landing',
+      'order' => $order
+    );
+    $this->load->view('template', $data);
+  }
+
+  function receipt($id) {
+    if (!isset($id)) {
+      $this->session->set_flashdata('warning', 'no id provided!');
+      redirect('order', 'refresh');
+    }
+    $order = $this->MOrder->find($id);
+    $data = array(
+      'title' => 'Receipt '.$order->id,
+      'order' => $order
+    );
+    $this->load->view('order/receipt', $data);
+  }
+
   // simpler to just put the method here..
   function send_mail($order) {
     $this->email->initialize($this->config->config);
@@ -165,16 +189,4 @@ class Order extends CI_Controller {
     }
   }
 
-  function receipt($id) {
-    if (!isset($id)) {
-      $this->session->set_flashdata('warning', 'no id provided!');
-      redirect('order', 'refresh');
-    }
-    $order = $this->MOrder->find($id);
-    $data = array(
-      'title' => 'Receipt '.$order->id,
-      'order' => $order
-    );
-    $this->load->view('order/receipt', $data);
-  }
 }
