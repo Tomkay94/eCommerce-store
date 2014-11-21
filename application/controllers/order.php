@@ -150,7 +150,8 @@ class Order extends CI_Controller {
     <p>Thanks for your order at eStore. You were charged <strong>$$order->total</strong> 
     through your creditcard ($order->creditcard_number).</p>
     
-    $order_items
+    To see more details on your order, check it out on our website
+    <a href='".base_url()."order/show/$order->id'>here</a>
 
     <p>Your order ID is $order->id.</p>
     <p>Please keep it safe for future reference.</p>
