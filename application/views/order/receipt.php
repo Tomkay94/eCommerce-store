@@ -1,16 +1,26 @@
 Items purchased
 <br />
 ==========================
-<br />
-Customer Name:
-<?php print_r($this->MUser->find($order->customer_id)->first); ?>
-,
-<?php print_r($this->MUser->find($order->customer_id)->last); ?>
-<br />
-Date of Order:
-<?php print_r($order->order_date); ?>
-<?php print_r($order->order_time); ?>
-<br />
+<table class="table">
+  <thead>
+    <tr>
+      <th>customer name</th>
+      <th>date purchased</th>
+    </tr>
+  </thead>
+  <tr>
+    <td>
+      <?php print_r($this->MUser->find($order->customer_id)->first); ?>
+      ,
+      <?php print_r($this->MUser->find($order->customer_id)->last); ?>
+    </td>
+    <td>
+      <?php print_r($order->order_date); ?>
+      --
+      <?php print_r($order->order_time); ?>
+    </td>
+  </tr>
+</table>
 ==========================
 <table class="table">
   <thead>
