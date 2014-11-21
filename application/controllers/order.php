@@ -53,22 +53,40 @@ class Order extends CI_Controller {
     $this->load->library('form_validation');
     $this->load->model('MOrder');
 
-    $order = new $this->MOrder();
-    $order->customer_id = $this->session->userdata('id');
-    $order->total = $this->cart->total();
-    $order->creditcard_number = $_POST['creditcard_number'];
-    $order->creditcard_month = $_POST['creditcard_month'];
-    $order->creditcard_year = $_POST['creditcard_year'];
+    $this->load->library('form_validation');
+    $this->form_validation->set_rules('creditcard_number','Creditcard Number','required|numeric|xss_clean|exact_length[16]');
+    $this->form_validation->set_rules('creditcard_month','Creditcard Month','required|numeric|xss_clean|exact_length[2]');
+    $this->form_validation->set_rules('creditcard_year','Creditcard Year','required|numeric|xss_clean|exact_length[2]');
 
-    if ($this->MOrder->insert($order, $this->cart->contents())) {
-      $this->session->set_flashdata('info', 'order successfully created, a email will be sent to you.');
-      // remove contents from cart as those were just bought
-      $this->cart->destroy();
-      // Send the order email
-      redirect('email/send_mail', 'refresh');
-    } else {
-      $this->session->set_flashdata('warning', 'failed to process transaction');
-      redirect('store', 'refresh');
+    if ($this->form_validation->run() == true) {
+      // X show popup receipt
+      $order = new $this->MOrder();
+      $order->customer_id = $this->session->userdata('id');
+      $order->total = $this->cart->total();
+      $order->creditcard_number = $_POST['creditcard_number'];
+      $order->creditcard_month = $_POST['creditcard_month'];
+      $order->creditcard_year = $_POST['creditcard_year'];
+
+      // attempt to create an Order record
+      if ($this->MOrder->insert($order, $this->cart->contents())) {
+        $this->session->set_flashdata('info', 'order successfully created, a email will be sent to you.');
+        // remove contents from cart as those were just bought
+        $this->cart->destroy();
+        // Send the order email
+        redirect('email/send_mail', 'refresh');
+      }
+
+      // the order record could not be created  
+      else {
+        $this->session->set_flashdata('warning', 'failed to process transaction');
+        redirect('store', 'refresh');
+      }
+    }
+
+    // credit card validation failed
+    else {
+      $this->session->set_flashdata('warning', 'those credentials were not valid');
+      redirect('checkout/show', 'refresh');
     }
   }
 

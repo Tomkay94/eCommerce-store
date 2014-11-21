@@ -17,14 +17,6 @@ class Checkout extends CI_Controller {
     );
     $this->load->view('template', $data);
   }
-
-  function validate_order() {
-    $valid = TRUE;
-
-    if($valid) {
-      // create the order record
-    }
-  }
 }
 
 ?>

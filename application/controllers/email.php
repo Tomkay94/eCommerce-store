@@ -12,19 +12,17 @@ class Email extends CI_Controller {
     $config = array(
       'protocol' => 'smtp',
       'smtp_host' => 'ssl://smtp.googlemail.com',
-      'port' => 465,
+      'smtp_port' => 587,
       'smtp_user' => 'estore.mailer@gmail.com',
-      'smtp_pass' => 'estoremailer',
-      'mailtype' => 'text',
-      'charset' => 'iso-8859-1',
-      'smtp_timeout' => 5
+      'smtp_pass' => 'estoremailer'
     );
 
     // Load the library with the email configuration
     $this->load->library('email', $config);
     $this->email->set_newline("\r\n");
+    $this->email->set_mailtype('html');
 
-    $this->email->from('estore.mailer@gmail.com', 'eStore-Mailer-no-reply');
+    $this->email->from('estore.mailer@gmail.com', 'eStore-no-reply');
     $this->email->to('thanasi.karachotzitis@mail.utoronto.ca'); //$this->session->userdata('email')
     $this->email->subject('some subject');
     $this->email->message('its working!');
@@ -32,9 +30,12 @@ class Email extends CI_Controller {
     // Attempt to send the email
     if($this->email->send()) {
       redirect('store/index', 'refresh');
+    $this->session->set_flashdata('warning', 'Purchase receipt successfully sent to ' . $this->session->userdata('email') . '!');  
+
     } else {
       show_error($this->email->print_debugger());
     }
-    $this->session->set_flashdata('warning', 'Purchase receipt successfully sent to ' . $this->session->userdata('email') . '!');  
   }
 }
+
+?>

@@ -118,6 +118,7 @@ class Store extends CI_Controller {
         $this->form_validation->set_rules('description','Description','required|xss_clean');
         $this->form_validation->set_rules('price','Price','required|numeric|xss_clean');
 
+        // We have validated form data, create a product.
         if ($this->form_validation->run() == true) {
             $product = new Product();
             $product->id = $id;
@@ -128,6 +129,8 @@ class Store extends CI_Controller {
             $this->product_model->update($product);
             //Then we redirect to the index page again
             redirect('store/index', 'refresh');
+        
+        // Validation failed, goto the product edit view.
         } else {
             $product = new Product();
             $product->id = $id;
