@@ -29,7 +29,7 @@
     </strong><br>
     <strong>
       Total: $<?= $this->cart->total() ?>
-    </strong><br>
+    </strong><br><br>
 
     <?= form_submit('submit', 'Create Order', "class='btn btn-default'")?>
   <?= form_close()?>

@@ -27,19 +27,20 @@ class Email extends CI_Controller {
     $this->load->library('email', $config);
     $this->email->set_newline("\r\n");
     $this->email->from('estore.mailer@gmail.com');
-    $this->email->to($this->session->userdata('id')['email']);
+    $this->email->to($this->session->userdata('email'));
     $this->email->subject('Purchase Receipt');
     $this->email->message($message);
   
   	// Attempt to send the email
     if($this->email->send()) {
-      $this->session->set_flashdata('success', 'Purchase receipt successfully sent to ' . $this->session->userdata('id')['email'] . '!');
+      $this->session->set_flashdata('success', 'Purchase receipt successfully sent to ' .
+                                    $this->session->userdata('email') . '!');
     } else {
      show_error($this->email->print_debugger());
     }
 
     redirect('store/index', 'refresh');
-	}
+  }
 }
 
 ?>

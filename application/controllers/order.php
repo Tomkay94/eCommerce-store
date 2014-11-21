@@ -62,6 +62,8 @@ class Order extends CI_Controller {
 
     if ($this->MOrder->insert($order, $this->cart->contents())) {
       $this->session->set_flashdata('info', 'order successfully created, a email will be sent to you.');
+      // remove contents from cart as those were just bought
+      $this->cart->destroy();
       // Send the order email
       redirect('email/send_mail', 'refresh');
     } else {

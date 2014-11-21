@@ -3,38 +3,24 @@
   <div class="row">
 
     <div class="col-md-3">
+    <?php
+      if ($this->session->userdata('signed_in') &&
+          $this->MUser->isAdmin($this->session->userdata('login'))):
+    ?>
       <h2>Products</h2>
 
       <div class="list-group">
-        <?php
-          if ($this->session->userdata('signed_in')) {
-            if ($this->MUser->isAdmin($this->session->userdata('login'))) {
-              echo anchor(base_url() . 'store/newForm', "Add New Product", "class='list-group-item'");
-            }
-            // else { // admin can't check out in specification
-              if ($cart = $this->cart->contents()) {
-                echo anchor(base_url() . 'checkout/show', "Checkout", "class='list-group-item'");
-              }
-            // }
-          }
-          if ($cart = $this->cart->contents()) {
-            echo anchor(base_url() . 'cart/destroy', "Clear Cart",
-                        "class='list-group-item'".
-                        "onClick='return confirm(".
-                          '"You are about to remove all items from your shopping cart."'.
-                        ");'"
-                       );
-          } else {
-            echo "<div class='list-group-item'>You cart is empty, buy something!</div>";
-          }
-        ?>
+        <?= anchor(base_url() . 'store/newForm', "Add New Product", "class='list-group-item'"); ?>
       </div>
+    <?php endif; ?>
 
       <!-- Show the shopping cart, if it exists -->
-      <?php if ($cart = $this->cart->contents()): ?>
 
         <table class="table" id="shopping-cart">
           <caption id="cart-header">Shopping Cart</caption>
+      <?php
+        if ($cart = $this->cart->contents()) {
+      ?>
           <thead>
             <tr>
               <th>Product</th>
@@ -63,14 +49,44 @@
           </tbody>
           <td><strong>Total:</strong></td>
           <td><?= '$' . $this->cart->total();?></td>  
+      <?php
+        }
+      ?>
         </table>
-      
-        <div>
-          Before you can checkout<br>
-          You need to sign in first
-        </div>
-        
-      <?php endif ?>
+
+      <!-- Shopping cart selections -->
+      <div class="list-group">
+      <?php
+        if ($cart = $this->cart->contents()) {
+
+          if ($this->session->userdata('signed_in')) {
+            echo anchor(base_url() . 'checkout/show', "Checkout", "class='list-group-item'");
+          } else {
+      ?>
+            <div class='list-group-item'>
+              Before you can checkout<br>
+              You need to sign in first
+            </div>
+      <?php
+          }
+
+          echo anchor(base_url() . 'cart/destroy', "Clear Cart",
+                      "class='list-group-item'".
+                      "onClick='return confirm(".
+                        '"You are about to remove all items from your shopping cart."'.
+                      ");'"
+                     );
+
+        } else {
+      ?>
+          <div class='list-group-item'>
+            You cart is currently empty,<br>
+            add some products to cart!
+          </div>
+      <?php
+        }
+      ?>
+      </div>
     </div><!-- ./col-md-3 -->
 
       <div class="col-md-9">
