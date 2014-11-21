@@ -164,5 +164,17 @@ class Order extends CI_Controller {
       show_error($this->email->print_debugger());
     }
   }
+
+  function receipt($id) {
+    if (!isset($id)) {
+      $this->session->set_flashdata('warning', 'no id provided!');
+      redirect('order', 'refresh');
+    }
+    $order = $this->MOrder->find($id);
+    $data = array(
+      'title' => 'Receipt '.$order->id,
+      'order' => $order
+    );
+    $this->load->view('order/receipt', $data);
+  }
 }
-?>
