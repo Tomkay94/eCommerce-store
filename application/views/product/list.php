@@ -48,7 +48,7 @@
             <?php } ?>
           </tbody>
           <td><strong>Total:</strong></td>
-          <td><?= '$' . $this->cart->total();?></td>  
+          <td><?= '$' . $this->cart->total();?></td>
       <?php
         }
       ?>
@@ -69,7 +69,12 @@
             </div>
       <?php
           }
-
+      ?>
+          <div class='list-group-item'>
+            To increase quantity of items in cart,<br>
+            just click 'add to cart' multiple times.
+          </div>
+      <?php
           echo anchor(base_url() . 'cart/destroy', "Clear Cart",
                       "class='list-group-item'".
                       "onClick='return confirm(".
