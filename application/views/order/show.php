@@ -15,7 +15,7 @@
       <td><?= $this->MUser->find($order->customer_id)->login ?></td>
       <td><?= $order->order_date . $order->order_time ?></td>
       <td><?= $order->total ?></td>
-      <td><?= anchor("user/delete/$order->id", 'Delete',
+      <td><?= anchor("order/delete/$order->id", 'Delete',
                       "onClick='return confirm(".
                         '"Do you really want to delete this record?"'.
                       ");'"

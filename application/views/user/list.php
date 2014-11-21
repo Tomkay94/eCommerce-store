@@ -14,7 +14,7 @@
     <thead>
       <tr>
         <th>id</th>
-        <th>login</th>
+        <th>username</th>
         <th>first name</th>
         <th>last name</th>
         <th>email</th>

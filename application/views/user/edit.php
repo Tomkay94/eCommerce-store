@@ -1,27 +1,38 @@
-<h2>Edit User #<?= $user->id ?></h2>
+<section class="closed-container">
+  
+  <h2 class="container-header">Edit User #<?= $user->id ?></h2>
 
-<?php
-  echo form_open("user/update/$user->id");
+  <?= form_open("user/update/$user->id", "role='form'") ?>
+    <div class="form-group">
+      <?= form_label('First Name') ?>
+      <?= form_error('first') ?>
+      <?= form_input('first', set_value('first', $user->first)) ?>
+    </div>
 
-  echo form_label('First Name'); 
-  echo form_error('first');
-  echo form_input('first', set_value('first', $user->first));
+    <div class="form-group">
+      <?= form_label('Last Name') ?>
+      <?= form_error('last') ?>
+      <?= form_input('last', set_value('last', $user->last)) ?>
+    </div>
+  
+    <div class="form-group">
+      <?= form_label('New Password') ?>
+      <?= form_error('pass') ?>
+      <?= form_password('pass', "", "required") ?>
+    </div>
 
-  echo form_label('Last Name'); 
-  echo form_error('last');
-  echo form_input('last', set_value('last', $user->last));
+    <div class="form-group">
+      <?= form_label('New Password Confirmation') ?>
+      <?= form_error('pass_conf') ?>
+      <?= form_password('pass_conf', "", "required") ?>
+    </div>
 
-  echo form_label('New Password');
-  echo form_error('pass');
-  echo form_input('pass', "", "required");
+    <?= form_submit('submit', 'Edit user', "class='btn btn-default'") ?>
+  <?= form_close() ?>
+  <br>
 
-  echo form_label('New Password Confirmation');
-  echo form_error('pass_conf');
-  echo form_input('pass_conf', "", "required");
-  echo '<br>';
+  <div>
+    <?= anchor("user/show/$user->id",'Back') ?>
+  </div>
 
-  echo form_submit('submit', 'Update');
-  echo form_close();
-
-  echo "<p>" . anchor("user/show/$user->id",'Back') . "</p>";
-?>
+</section>
