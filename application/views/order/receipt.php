@@ -6,6 +6,7 @@ Items purchased
     <tr>
       <th>customer name</th>
       <th>date purchased</th>
+      <th>total cost</th>
     </tr>
   </thead>
   <tr>
@@ -18,6 +19,9 @@ Items purchased
       <?php print_r($order->order_date); ?>
       --
       <?php print_r($order->order_time); ?>
+    </td>
+    <td>
+      <?php print_r($order->total); ?>
     </td>
   </tr>
 </table>
