@@ -73,13 +73,12 @@ class Order extends CI_Controller {
         // remove contents from cart as those were just bought
         $this->cart->destroy();
         // Send the order email
-        redirect('email/send_mail', 'refresh');
+        $this->send_mail($order);
       }
 
       // the order record could not be created  
       else {
         $this->session->set_flashdata('warning', 'failed to process transaction');
-        redirect('store', 'refresh');
       }
     }
 
@@ -88,6 +87,8 @@ class Order extends CI_Controller {
       $this->session->set_flashdata('warning', 'those credentials were not valid');
       redirect('checkout/show', 'refresh');
     }
+
+    redirect('store', 'refresh');
   }
 
   function delete($id) {
@@ -111,6 +112,26 @@ class Order extends CI_Controller {
       $this->session->set_flashdata('warning', 'error occured while processing orders removal.');
     }
     redirect('order', 'refresh');
+  }
+
+  // simpler to just put the method here..
+  function send_mail($order) {
+    $this->email->initialize($this->config->config);
+
+    $this->email->from('estore.mailer@gmail.com', 'eStore-Mailer-no-reply');
+    $this->email->to($this->session->userdata('email'));
+
+    $this->email->subject('Your purchase receipt:');
+    $this->email->message("Money charged through your creditcard ($order->creditcard_number): $$order->total");
+
+    // Attempt to send the email
+    if($this->email->send()) {
+      $this->session->set_flashdata('info', 'Purchase receipt successfully sent to ' .
+                                    $this->session->userdata('email') . '!');
+    } else {
+      $this->session->set_flashdata('warning', 'an error occured during send mail');
+      show_error($this->email->print_debugger());
+    }
   }
 
 }
