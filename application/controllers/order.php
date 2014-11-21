@@ -135,14 +135,10 @@ class Order extends CI_Controller {
   // simpler to just put the method here..
   function send_mail($order) {
     $this->email->initialize($this->config->config);
+
     $this->email->set_mailtype("html");
-
-
-
     $this->email->from('estore.mailer@gmail.com', 'eStore-Mailer-no-reply');
     $this->email->to($this->session->userdata('email'));
-
-    $order_items = $this->Order_Item->find_all_from_order($order->id);
     
     $this->email->subject('Your purchase receipt:');
     $receipt = "
