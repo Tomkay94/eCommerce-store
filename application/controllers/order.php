@@ -68,7 +68,7 @@ class Order extends CI_Controller {
       $order->creditcard_year = $_POST['creditcard_year'];
 
       // attempt to create an Order record
-      if ($this->MOrder->insert($order, $this->cart->contents())) {
+      if ($order->id = $this->MOrder->insert($order, $this->cart->contents())) {
         $this->session->set_flashdata('info', 'order successfully created, a email will be sent to you.');
         // remove contents from cart as those were just bought
         $this->cart->destroy();
@@ -122,7 +122,8 @@ class Order extends CI_Controller {
     $this->email->to($this->session->userdata('email'));
 
     $this->email->subject('Your purchase receipt:');
-    $this->email->message("Money charged through your creditcard ($order->creditcard_number): $$order->total");
+    $this->email->message("Money charged through your creditcard ($order->creditcard_number): $$order->total 
+    TXid is $order->id, please keep it safe.");
 
     // Attempt to send the email
     if($this->email->send()) {

@@ -45,7 +45,12 @@ class MOrder extends CI_Model {
     }
     $this->db->trans_complete();
 
-    return $this->db->trans_status();
+    if ($this->db->trans_status()) {
+      // very useful!
+      return $order_id;
+    } else {
+      return FALSE;
+    };
   }
 
   function delete($id) {
