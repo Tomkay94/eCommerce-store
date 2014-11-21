@@ -15,16 +15,17 @@ class Email extends CI_Controller {
       'port' => 465,
       'smtp_user' => 'estore.mailer@gmail.com',
       'smtp_pass' => 'estoremailer',
-      'mailtype' => 'html',
-      'charset' => 'utf-8',
-      'newline' => "\r\n"
+      'mailtype' => 'text',
+      'charset' => 'iso-8859-1',
+      'smtp_timeout' => 5
     );
 
     // Load the library with the email configuration
     $this->load->library('email', $config);
-    
+    $this->email->set_newline("\r\n");
+
     $this->email->from('estore.mailer@gmail.com', 'eStore-Mailer-no-reply');
-    $this->email->to($this->session->userdata('email'));
+    $this->email->to('thanasi.karachotzitis@mail.utoronto.ca'); //$this->session->userdata('email')
     $this->email->subject('some subject');
     $this->email->message('its working!');
 
