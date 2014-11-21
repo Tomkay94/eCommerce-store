@@ -55,8 +55,8 @@ class Order extends CI_Controller {
 
     $this->load->library('form_validation');
     $this->form_validation->set_rules('creditcard_number','Creditcard Number','required|numeric|xss_clean|exact_length[16]');
-    $this->form_validation->set_rules('creditcard_month','Creditcard Month','required|numeric|xss_clean|exact_length[2]');
-    $this->form_validation->set_rules('creditcard_year','Creditcard Year','required|numeric|xss_clean|exact_length[2]');
+    $this->form_validation->set_rules('creditcard_month','Creditcard Month','required|numeric|xss_clean|exact_length[2]|greater_than[0]|less_than[13]');
+    $this->form_validation->set_rules('creditcard_year','Creditcard Year','required|numeric|xss_clean|exact_length[2]|greater_than[0]');
 
     if ($this->form_validation->run() == true) {
       // X show popup receipt
