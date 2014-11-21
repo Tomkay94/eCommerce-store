@@ -1,8 +1,37 @@
+<script>
+  $(document).ready(function () {
+    $('#registration-form').validate({ // initialize the plugin
+      rules: {
+        login: {
+          required: true
+        },
+        email: {
+          required: true,
+          email: true
+        },
+        first: {
+          required: true
+        },
+        last: {
+          required: true
+        },
+        pass: {
+          required: true,
+          minlength: 6
+        },
+        pass_conf: {
+          equalTo: '#pass'
+        }
+      }
+    });
+  });
+</script>
+
 <section class="closed-container">
   
   <h2 class="container-header">Sign up</h2>
   
-  <?= form_open('user/create', "role='form'") ?>
+  <?= form_open('user/create', "id='registration-form' role='form'") ?>
 
     <div class="form-group">
       <?= form_error('login')?>
@@ -31,7 +60,7 @@
     <div class="form-group">
       <?= form_error('pass')?>
       <?= form_label('Password')?>
-      <?= form_password('pass', "", "class='form-control'", "required")?>
+      <?= form_password('pass', "", "id='pass' class='form-control'", "required")?>
     </div>
 
     <div class="form-group">

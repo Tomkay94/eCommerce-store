@@ -98,8 +98,8 @@ class User extends CI_Controller {
     $this->form_validation->set_rules('email', 'Email', 'required|xss_clean|is_unique[customers.email]|valid_email');
     $this->form_validation->set_rules('first', 'First Name', 'required|xss_clean');
     $this->form_validation->set_rules('last', 'Last Name', 'required|xss_clean');
-    $this->form_validation->set_rules('pass', 'Password', 'required|xss_clean|matches[pass_conf]');
-    $this->form_validation->set_rules('pass_conf', 'Password Confirmation', 'required|xss_clean');
+    $this->form_validation->set_rules('pass', 'Password', 'required|xss_clean|min_length[6]');
+    $this->form_validation->set_rules('pass_conf', 'Password Confirmation', 'required|xss_clean|matches[pass]');
 
     if ($this->form_validation->run() == FALSE) {
         $this->session->set_flashdata('warning',

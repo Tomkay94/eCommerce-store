@@ -1,10 +1,30 @@
+<script>
+  // placed here since it's only used in this view
+  $(document).ready(function () {
+    $('#new-form').validate({ // initialize the plugin
+      rules: {
+        name: {
+          required: true
+        },
+        description: {
+          required: true
+        },
+        price: {
+          required: true,
+          min: 0.01
+        }
+      }
+    });
+  });
+</script>
+
 <section class="closed-container">
   
   	<h2 class="container-header">New Product</h2>
 
 	<?= "<p>" . anchor('store/index','Back') . "</p>"; ?>
 
-	<?= form_open_multipart('store/create'); ?>
+	<?= form_open_multipart('store/create', "id='new-form' role='form'"); ?>
     
 	    <div class="form-group">
 			<?= form_label('Name'); ?> 
@@ -19,7 +39,7 @@
 	    </div>
 
 	    <div class="form-group">
-			<?= form_label('Price'); ?>
+			<?= form_label('Price ($)'); ?>
 			<?= form_error('price'); ?>
 			<?= form_input('price', set_value('price'), "class='form-control'", "required"); ?>
 	    </div>

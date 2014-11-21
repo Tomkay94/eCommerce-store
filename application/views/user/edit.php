@@ -1,8 +1,30 @@
+<script>
+  $(document).ready(function () {
+    $('#edit-form').validate({ // initialize the plugin
+      rules: {
+        first: {
+          required: true
+        },
+        last: {
+          required: true
+        },
+        pass: {
+          required: true,
+          minlength: 6
+        },
+        pass_conf: {
+          equalTo: '#pass'
+        }
+      }
+    });
+  });
+</script>
+
 <section class="closed-container">
   
   <h2 class="container-header">Edit User #<?= $user->id ?></h2>
 
-  <?= form_open("user/update/$user->id", "role='form'") ?>
+  <?= form_open("user/update/$user->id", "id='edit-form' role='form'") ?>
     <div class="form-group">
       <?= form_label('First Name') ?>
       <?= form_error('first') ?>
@@ -18,7 +40,7 @@
     <div class="form-group">
       <?= form_label('New Password') ?>
       <?= form_error('pass') ?>
-      <?= form_password('pass', "", "required") ?>
+      <?= form_password('pass', "", "id='pass' required") ?>
     </div>
 
     <div class="form-group">

@@ -1,8 +1,24 @@
+<script>
+  // placed here since it's only used in this view
+  $(document).ready(function () {
+    $('#login-form').validate({ // initialize the plugin
+      rules: {
+        login: {
+          required: true
+        },
+        pass: {
+          required: true
+        }
+      }
+    });
+  });
+</script>
+
 <section class="closed-container">
   
   <h2 class="container-header">Sign in</h2>
   
-  <?= form_open('user/process_login', "role='form'") ?>
+  <?= form_open('user/process_login', "id='login-form' role='form'") ?>
     <div class="form-group">
       <?= form_error('login')?>
       <?= form_label('Username')?>

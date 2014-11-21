@@ -26,7 +26,7 @@
       echo "<td>" . $order->id . "</td>";
       echo "<td>" . $this->MUser->find($order->customer_id)->login . "</td>";
       echo "<td>" . $order->order_date . ' ' . $order->order_time . "</td>";
-      echo "<td>" . $order->total . "</td>";
+      echo "<td>$" . $order->total . "</td>";
 
       echo "<td>" . anchor("order/show/$order->id", 'Show') . "</td>";
       echo "<td>" . anchor("order/delete/$order->id", 'Delete',
