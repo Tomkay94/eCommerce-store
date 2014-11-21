@@ -91,7 +91,7 @@ class Order extends CI_Controller {
         $this->send_mail($order);
         // remove contents from cart as those were just bought
         $this->cart->destroy();
-        redirect('order/receipt_landing', 'refresh');
+        redirect("order/receipt_landing/$order->id", 'refresh');
       }
 
       // the order record could not be created  
