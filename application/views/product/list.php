@@ -86,7 +86,7 @@
       ?>
           <div class='list-group-item'>
             You cart is currently empty,<br>
-            add some products to cart!
+            add some products to the cart!
           </div>
       <?php
         }
