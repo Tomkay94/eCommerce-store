@@ -54,31 +54,54 @@ class Order extends CI_Controller {
     $this->load->model('MOrder');
 
     $this->load->library('form_validation');
-    $this->form_validation->set_rules('creditcard_number','Creditcard Number','required|numeric|xss_clean|exact_length[16]');
-    $this->form_validation->set_rules('creditcard_month','Creditcard Month','required|numeric|xss_clean|exact_length[2]|greater_than[0]|less_than[13]');
-    $this->form_validation->set_rules('creditcard_year','Creditcard Year','required|numeric|xss_clean|exact_length[2]|greater_than[0]');
+    $this->form_validation->set_rules(
+      'creditcard_number',
+      'Creditcard Number',
+      'required|numeric|xss_clean|exact_length[16]'
+    );
+    $this->form_validation->set_rules(
+      'creditcard_month',
+      'Creditcard Month',
+      'required|numeric|xss_clean|exact_length[2]|greater_than[0]|less_than[13]'
+    );
+    $this->form_validation->set_rules(
+      'creditcard_year',
+      'Creditcard Year',
+      'required|numeric|xss_clean|exact_length[2]|greater_than[number_format(sprintf("%02s", date('y'))) -1]'
+    );
 
-    if ($this->form_validation->run() == true) {
-      // X show popup receipt
-      $order = new $this->MOrder();
-      $order->customer_id = $this->session->userdata('id');
-      $order->total = $this->cart->total();
-      $order->creditcard_number = $_POST['creditcard_number'];
-      $order->creditcard_month = $_POST['creditcard_month'];
-      $order->creditcard_year = $_POST['creditcard_year'];
-
-      // attempt to create an Order record
-      if ($order->id = $this->MOrder->insert($order, $this->cart->contents())) {
-        $this->session->set_flashdata('info', 'order successfully created, a email will be sent to you.');
-        // remove contents from cart as those were just bought
-        $this->cart->destroy();
-        // Send the order email
-        $this->send_mail($order);
+    // if the credit card expires this year, check the month
+    if (number_format($_POST['creditcard_year']) == number_format(sprintf("%02s", date('y')))) {
+      if (number_format($_POST['creditcard_month']) < (number_format(sprintf("%02s", date('m'))))) {
+        $this->session->set_flashdata('warning', 'that credit card has expired');
+        redirect('checkout/show', 'refresh');
       }
+    }
 
-      // the order record could not be created  
-      else {
-        $this->session->set_flashdata('warning', 'failed to process transaction');
+    // credit card is good, proceed with form validation
+    else {
+      if ($this->form_validation->run() == true) {
+        $order = new $this->MOrder();
+        $order->customer_id = $this->session->userdata('id');
+        $order->total = $this->cart->total();
+        $order->creditcard_number = $_POST['creditcard_number'];
+        $order->creditcard_month = $_POST['creditcard_month'];
+        $order->creditcard_year = $_POST['creditcard_year'];
+
+        // attempt to create an Order record
+        if ($order->id = $this->MOrder->insert($order, $this->cart->contents())) {
+          $this->session->set_flashdata('info', 'order successfully created, a email will be sent to you.');
+          // remove contents from cart as those were just bought
+          $this->cart->destroy();
+          // Send the order email
+          $this->send_mail($order);
+        }
+
+        // the order record could not be created  
+        else {
+          $this->session->set_flashdata('warning', 'failed to process transaction');
+          redirect('checkout/show', 'refresh');
+        }
       }
     }
 
@@ -134,7 +157,5 @@ class Order extends CI_Controller {
       show_error($this->email->print_debugger());
     }
   }
-
 }
-
 ?>

@@ -23,7 +23,7 @@ class Email extends CI_Controller {
     $this->email->set_mailtype('html');
 
     $this->email->from('estore.mailer@gmail.com', 'eStore-no-reply');
-    $this->email->to('thanasi.karachotzitis@mail.utoronto.ca'); //$this->session->userdata('email')
+    $this->email->to($this->session->userdata('email'));
     $this->email->subject('some subject');
     $this->email->message('its working!');
 

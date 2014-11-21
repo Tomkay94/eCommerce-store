@@ -33,5 +33,4 @@
 
     <?= form_submit('submit', 'Create Order', "class='btn btn-default'")?>
   <?= form_close()?>
-
 </section>
