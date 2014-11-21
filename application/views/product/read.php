@@ -4,7 +4,7 @@
     <h2 class="container-header">Product Entry</h2>
 
 	<?= "<img src='" . base_url() . "images/product/" . $product->photo_url .
-        "' class='center-block' width='320px' height='150px'/>"; ?>
+        "' class='center-block' width='360' height='250'/>"; ?>
 
 	<table class="table">
 		<thead>

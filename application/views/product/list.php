@@ -101,7 +101,7 @@
           <?= form_open('cart/add'); ?>
           <div class="col-sm-4 col-lg-4 col-md-4">
             <div class="thumbnail">
-		          <?= "<img src='" . base_url() . "images/product/" . $product->photo_url . "' width='320px' height='150px'/>"; ?>
+              <?= "<img src='" . base_url() . "images/product/" . $product->photo_url . "' style='height: 180px;'/>"; ?>
               <div class="caption">
                 <h4 class="pull-right">$<?= $product->price ?></h4>
                 <h4><a href=<?= base_url() . "store/read/$product->id"?>><?= $product->name ?></a></h4>
