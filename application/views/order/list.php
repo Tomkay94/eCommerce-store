@@ -15,8 +15,8 @@
     <thead>
       <tr>
         <th>transaction id</th>
-        <th>customer username</th>
-        <th>order time</th>
+        <th>customer handle</th>
+        <th>time of transaction</th>
         <th>total</th>
       </tr>
     </thead>
@@ -25,7 +25,7 @@
       echo "<tr>";
       echo "<td>" . $order->id . "</td>";
       echo "<td>" . $this->MUser->find($order->customer_id)->login . "</td>";
-      echo "<td>" . $order->order_date . $order->order_time . "</td>";
+      echo "<td>" . $order->order_date . ' ' . $order->order_time . "</td>";
       echo "<td>" . $order->total . "</td>";
 
       echo "<td>" . anchor("order/show/$order->id", 'Show') . "</td>";

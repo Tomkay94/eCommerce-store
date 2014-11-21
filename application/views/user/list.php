@@ -8,12 +8,12 @@
   ?>
   <br>
 
-  <h2 class="container-header">User Table</h2>
+  <h2 class="container-header">Users Table</h2>
 
   <table class="table">
     <thead>
       <tr>
-        <th>id</th>
+        <th>user id</th>
         <th>username</th>
         <th>first name</th>
         <th>last name</th>

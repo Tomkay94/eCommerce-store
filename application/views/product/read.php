@@ -1,5 +1,5 @@
 <section class="closed-container">
-	<p><?= anchor('store/index','Back') ?></p>
+	<p><?= anchor('store/index','Back to store') ?></p>
 
     <h2 class="container-header">Product Entry</h2>
 

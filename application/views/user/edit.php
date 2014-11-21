@@ -32,7 +32,7 @@
   <br>
 
   <div>
-    <?= anchor("user/show/$user->id",'Back') ?>
+    <?= anchor("user/show/$user->id",'Back to read only view') ?>
   </div>
 
 </section>

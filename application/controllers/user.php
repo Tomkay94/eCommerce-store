@@ -202,7 +202,7 @@ class User extends CI_Controller {
     }
 
     if ($this->MUser->delete($id)) {
-      $this->session->set_flashdata('warning', 'Account Deleted!');
+      $this->session->set_flashdata('info', 'Account deleted.');
       redirect('user', 'refresh');
     } else {
       $this->session->set_flashdata('warning', 'Error deleteing account.');
@@ -214,7 +214,7 @@ class User extends CI_Controller {
     // only admin can reach here
 
     if ($this->MUser->delete_all()) {
-      $this->session->set_flashdata('warning', 'Accounts Removed!');
+      $this->session->set_flashdata('info', 'All non-admin user accounts removed.');
       redirect('user', 'refresh');
     } else {
       $this->session->set_flashdata('warning', 'Error deleteing account.');

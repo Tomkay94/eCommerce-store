@@ -62,8 +62,12 @@ class MUser extends CI_Model {
 
   // except admin user
   function delete_all() {
+    $this->db->trans_start();
     $this->db->where("UPPER(customers.login) != 'ADMIN'");
-    return $this->db->delete("customers");
+    $this->db->delete("customers");
+    $this->db->trans_complete();
+
+    return $this->db->trans_status();
   }
 
 }
